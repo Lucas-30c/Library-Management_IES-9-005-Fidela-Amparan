@@ -1,0 +1,102 @@
+{% extends "layoutForm.html" %}
+
+
+{% block title %} Registro de libros {% endblock %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <a href="/exploreBooksLibrarian">
+        <button type="button" class="btn2 btn-primary"><i class="uil uil-arrow-circle-left"></i> Libros</button>
+    </a>
+    <div class="forms" style="height: max-content;">
+        <div class="form login">
+            <span class="title">Registro de libros</span>
+
+            <div class="input-field">
+                <input type="text" value="N° Inventario:  {{idMaxBook}}" disabled required style="color: rgb(92, 93, 97); background-color: rgba(0, 255, 255, 0);">
+                <i class="uil uil-book-alt"></i>
+            </div>
+
+            <form action="/registroDeLibros/salvarLibro" method="POST">
+                <div class="input-field">
+                    <input name="Descripcion" type="text" placeholder="Descripción ?" required>
+                    <i class="uil uil-book-alt"></i>
+                </div>
+                <div class="input-field">
+                    <input name="Titulo" type="text" placeholder="Título ?" required>
+                    <i class="uil uil-book-alt"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Autor" type="text" placeholder="Autor/res ?" required>
+                    <i class="uil uil-user"></i></a>
+                </div>
+                <div class="input-field">
+                    <input name="NumeroTopologia" type="text"  placeholder="N° de topología (CDD) ?" required>
+                    <i class="uil uil-list-ol"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Editorial" type="text" placeholder="Editorial ?" required>
+                    <i class="uil uil-clipboard-alt"></i>
+                </div>
+                <div class="input-field">
+                    <input name="NumeroRegistroNacional" type="text"  placeholder="Número ISBN ?" required>
+                    <i class="uil uil-list-ol"></i>
+                </div>
+
+                <div class="input-field" style="margin-bottom: -6.5%;">
+                    <select class="form-select" aria-label="Default select example" id="Soporte	"
+                        name="Soporte" required>
+                        <option disabled selected value="" style="color: gray;">Soporte ?</option>
+                        <option name="Soporte" value="Papel">Papel</option>
+                        <option name="Soporte" value="Digital">Digital</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <input name="Estanteria" type="number" placeholder="Número estantería ?" required>
+                    <i class="uil uil-books"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Copias" type="number" placeholder="Número de copias ?" required>
+                    <i class="uil uil-books"></i>
+                </div>
+
+                <div class="input-field" style="margin-bottom: -6.5%;">
+                    <select class="form-select" aria-label="Default select example" id="Lectura	"
+                        name="Lectura" required>
+                        <option disabled selected value="" style="color: gray;">Lectura ?</option>
+                        <option name="Lectura" value="Sala">Sala</option>
+                        <option name="Lectura" value="Libre">Libre</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <input name="Estado" type="text" placeholder="Estado ?" value="Disponible" disabled required>
+                    <i class="uil uil-books"></i>
+                </div>
+                    
+                <div class="input-field button">
+                    <input  type="submit" value="Registrar">
+                </div>
+            </form>
+        </div>
+    </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 3%;">
+        <i class="uil uil-check-circle" style="color: green; font-size: 109%;"></i><strong>  ¡Éxito!</strong>  {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
+{% endblock %}

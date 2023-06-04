@@ -1,0 +1,95 @@
+{% extends "layoutForm.html" %}
+
+
+{% block title %} Editar Socio {% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <a href="/showMembers">
+        <button type="button" class="btn2 btn-primary"><i class="uil uil-arrow-circle-left"></i> Socios</button>
+    </a>
+    <div class="forms" style="height: max-content">
+        <div class="form login">
+            <span class="title">Actualizar Socio</span>
+
+            <form action="/updateMember/{{member.0}}" method="POST">
+                <div class="input-field">
+                    <input name="id" type="text" value="N° Socio:  {{member.0}}" disabled required style="color: rgb(92, 93, 97); background-color: rgba(0, 255, 255, 0);">
+                    <i class="uil uil-user"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="dni" type="text" placeholder="DNI ?" value="{{member.1}}" required>
+                    <i class="uil uil-credit-card"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="apellido" type="text" placeholder="Apellido ?" value="{{member.2}}" required>
+                    <i class="uil uil-user"></i>
+                </div>
+                <div class="input-field">
+                    <input name="nombre" type="text" placeholder="Nombre ?" value="{{member.3}}" required>
+                    <i class="uil uil-user"></i>
+                </div>                
+
+                <div class="input-field">
+                    <input name="email" type="email" placeholder="Email ?" value="{{member.4}}" required>
+                    <i class="uil uil-envelope icon"></i>
+                </div>
+
+                <div class="input-field">
+                    <input type="password" name="password" placeholder="Contraseña ?" value="{{member.5}}" required>
+                    <button type="button" class="btn btn-link password-toggle" style="margin-left: 86%;"><i
+                            class="uil uil-eye"></i></button>
+                    <i class="uil uil-lock icon"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="celular" type="tel" placeholder="Celular ?" value="{{member.6}}" required>
+                    <i class="uil uil-mobile-android"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="direccion" type="text" placeholder="Dirección ?" value="{{member.7}}" required>
+                    <i class="uil uil-house-user"></i>
+                </div>
+
+                <div class="input-field" style="margin-bottom: -6.5%;">
+                    <select class="form-select" aria-label="Default select example" id="documentacion" name="documentacion" required>
+                        <option value="{{member.8}}">{{member.8}}</option><br><br>
+                        <option disabled value="" style="background-color: rgba(209, 209, 209, 0.466);"></option>
+                        <option name="documentacion" value="ENTREGADA" style="color: green">ENTREGADA</option>
+                        <option name="documentacion" value="DEBE ENTREGAR" style="color: red;">DEBE ENTREGAR</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <input name="responsable" type="text" placeholder="Responsable ?" value="{{member.9}}" required>
+                    <i class="uil uil-users-alt"></i>
+                </div>
+
+
+                <div class="input-field button">
+                    <input type="submit" value="Registrar nuevos datos">
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- Script -->
+<script type="text/javascript">
+    var passwordToggle = document.querySelector('.password-toggle');
+    var passwordField = document.querySelector('#password');
+
+    passwordToggle.addEventListener('click', function () {
+        var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('uil-eye');
+        this.querySelector('i').classList.toggle('uil-eye-slash');
+    });
+</script>
+{% endblock %}

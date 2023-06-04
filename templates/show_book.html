@@ -1,0 +1,175 @@
+{% extends "layoutLibrarian.html" %}
+
+
+{% block title %} Libros Biblioteca Dussel {% endblock %}
+
+
+{% block content %}
+<nav class="navbar">
+    <div class="header-2">
+        <ul>
+            <p class="nameUser">Menú</p>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/InicioLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-estate"></i>
+                    </span>
+                    <span class="title">Inicio</span>
+                </a>
+            </li>
+            <li class="list active">
+                <b></b>
+                <b></b>
+                <a href="/exploreBooksLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-books"></i>
+                    </span>
+                    <span href="/exploreBooksLibrarian" class="title">Explorar Libros</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/aboutOnLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-question-circle"></i>
+                    </span>
+                    <span href="/aboutOnLibrarian" class="title">Acerca de</span>
+                </a>
+            </li>
+            <hr
+                style="border: 2px solid #EEE7CE; border-radius: 2px; opacity: 1; width: 90%; margin-left: -2%; box-shadow: 0 0 2px rgb(0, 0, 0);">
+            <!-----------------   FUNCTIONS LIBRARYAN   ----------------->
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showMembers">
+                    <span class="icon">
+                        <i class="uil uil-user-plus" style="margin-left: 8%;"></i>
+                    </span>
+                    <span class="title">Socios</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showPrestamo">
+                    <span class="icon">
+                        <i class="uil uil-book-reader"></i>
+                    </span>
+                    <span class="title">Prestamos</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showDevolution">
+                    <span class="icon">
+                        <i class="uil uil-clock"></i>
+                    </span>
+                    <span class="title">Devoluciones</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="toggle">
+        <ion-icon name="menu-outline" class="open"></ion-icon>
+        <ion-icon name="close-outline" class="close"></ion-icon>
+    </div>
+</nav>
+
+
+
+
+<div class="card" style="width: 20rem; display: inline-block; margin-bottom: 0; padding-bottom: 0;">
+    <img src="/static/images/book-3.png" class="card-img-top" alt="...">
+    <div class="card-body" style="text-align: left; font-size: medium;">
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h5 class="card-title">Título:</h5>{{book.2}}<br><br>
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle">Número de inventario:</h6>{{book.0}}<br><br>
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle">Autor/res:</h6>{{book.3}}<br><br>
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle">Editorial:</h6>{{book.5}}<br><br>
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle">Descripción:</h6>{{book.1}}<br><br>
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle">Num. Topología (CDD):</h6>{{book.4}}<br><br>
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle">Num. ISBN:</h6>{{book.6}}<br><br>
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle">Estante:</h6>{{book.8}}<br><br>
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle">Cantidad:</h6>{{book.9}}<br><br>
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle">Soporte:</h6>{{book.7}}<br><br>
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle">Lectura:</h6>{{book.10}}
+        <hr class="my-3 border-5" style="background-color: red;">
+        <i class="uil uil-angle-right-b" style="color: #0d6a7a;"></i>
+        <h6 class="card-subtitle" style="display: inline-block;">Estado:</h6>
+        {% if book.11 == "Disponible" %}
+        <p class="card-text" style="color: green; display: inline-block;">{{book.11}}</p>
+        {% elif book.11 == "Prestado" %}
+        <p class="card-text" style="color: rgb(255, 123, 0); display: inline-block;">{{book.11}}</p>
+        {% endif %}
+    </div>
+
+    {% if user_rol != 'LIB_AUX' %}
+    <a href="/updateBook/{{book.0}}" class="btn btn-primary"
+        style="margin-top: -18%; text-align: center; padding: 8.5px 50px 8.5px 50px; border-radius: .47rem;">Editar</a>
+    {% endif %}
+</div>
+
+
+
+<style>
+    .card-title {
+        margin-bottom: 17%;
+        display: inline;
+        color: #D90E40;
+        margin-inline-end: 5%;
+        text-align: left;
+        font-size: medium;
+    }
+
+    .card-subtitle {
+        margin-bottom: 17%;
+        display: inline;
+        color: #D90E40;
+        margin-inline-end: 5%;
+        text-align: left;
+    }
+
+    .main .card-img-top {
+        max-width: 55%;
+        max-height: 55%;
+    }
+</style>
+
+
+
+
+
+<script type="text/javascript">
+    let menuToggle = document.querySelector('.navbar .toggle')
+    let Navigation = document.querySelector('.navbar .header-2')
+    menuToggle.onclick = function () {
+        menuToggle.classList.toggle('active')
+        Navigation.classList.toggle('active')
+    }
+
+    for (let i = 0; i < list.length; i++) {
+        list[i].onclick = function () {
+            let j = 0;
+            while (j < list.length) {
+                list[j++].className = 'list'
+            }
+            list[i].className = 'list active';
+        }
+    }
+</script>
+{% endblock %}

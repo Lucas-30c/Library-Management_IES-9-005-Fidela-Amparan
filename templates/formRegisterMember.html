@@ -1,0 +1,124 @@
+{% extends "layoutForm.html" %}
+
+
+{% block title %} Formulario de registro {% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <a href="/showMembers">
+        <button type="button" class="btn2 btn-primary"><i class="uil uil-arrow-circle-left"></i> Socios</button>
+    </a>
+    <div class="forms" style="height: max-content;">
+        <div class="form login">
+            <span class="title">Formulario de registro</span>
+
+            <div class="input-field">
+                <input type="text" value="N° Socio:  {{idMaxMember}}" disabled required
+                    style="color: rgb(92, 93, 97); background-color: rgba(0, 255, 255, 0);">
+                <i class="uil uil-user"></i>
+            </div>
+
+            <form action="/salvarFormularioSocios" id="form" method="POST">
+                <div class="input-field">
+                    <input name="dni" type="text" placeholder="DNI ?" id="dni" required>
+                    <i class="uil uil-credit-card"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Apellido" type="text" placeholder="Apellido ?" id="apellido" required>
+                    <i class="uil uil-user"></i>
+                </div>
+                <div class="input-field">
+                    <input name="Nombre" type="text" placeholder="Nombre ?" id="nombre" required>
+                    <i class="uil uil-user"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="email" type="email" placeholder="Email ?" id="email" required>
+                    <i class="uil uil-envelope icon"></i>
+                </div>
+
+                <div class="input-field">
+                    <input type="password" id="password" name="password" placeholder="Contraseña ?" required>
+                    <button type="button" class="btn btn-link password-toggle" style="margin-left: 86%;"><i
+                            class="uil uil-eye"></i></button>
+                    <i class="uil uil-lock icon"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Celular" type="tel" placeholder="Celular ?" id="celular" required>
+                    <i class="uil uil-mobile-android"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="direccion" type="text" placeholder="Dirección ?" id="direccion" required>
+                    <i class="uil uil-house-user"></i>
+                </div>
+
+                <div class="input-field" style="margin-bottom: -6.5%;">
+                    <select class="form-select" aria-label="Default select example" id="documentacion"
+                        name="documentacion" required>
+                        <option disabled selected value="">Documentación ?</option>
+                        <option name="documentacion" value="ENTREGADA" style="color: green">ENTREGADA</option>
+                        <option name="documentacion" value="DEBE ENTREGAR" style="color: red;">DEBE ENTREGAR</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <input name="responsable" type="text" placeholder="Responsable ?" value="MAYOR DE 18"
+                        id="responsable" required>
+                    <i class="uil uil-users-alt"></i>
+                </div>
+
+
+                <div class="bstr d-grid col-12 mx-auto" style="margin-top: 5%;">
+                    <button class="btn btn-primary" type="submit" id="btn" disabled>Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Script -->
+<script type="text/javascript">
+    var passwordToggle = document.querySelector('.password-toggle');
+    var passwordField = document.querySelector('#password');
+
+    passwordToggle.addEventListener('click', function () {
+        var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('uil-eye');
+        this.querySelector('i').classList.toggle('uil-eye-slash');
+    });
+
+    const dni = document.getElementById('dni');
+    const apellido = document.getElementById('apellido');
+    const nombre = document.getElementById('nombre');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const celular = document.getElementById('celular');
+    const direccion = document.getElementById('direccion');
+    const documentacion = document.getElementById('documentacion');
+    const responsable = document.getElementById('responsable');
+    const btn = document.getElementById('btn');
+
+    dni.addEventListener('input', habilitar);
+    apellido.addEventListener('input', habilitar);
+    nombre.addEventListener('input', habilitar);
+    email.addEventListener('input', habilitar);
+    password.addEventListener('input', habilitar);
+    celular.addEventListener('input', habilitar);
+    direccion.addEventListener('input', habilitar);
+    documentacion.addEventListener('change', habilitar);
+    responsable.addEventListener('input', habilitar);
+
+    function habilitar() {
+        if (dni.value && apellido.value && nombre.value && email.value && password.value && celular.value && direccion.value && documentacion.value && responsable.value) {
+            btn.disabled = false;
+        } else {
+            btn.disabled = true;
+        }
+    }
+</script>
+{% endblock %}

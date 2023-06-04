@@ -1,0 +1,210 @@
+{% extends "layoutLibrarian.html" %}
+
+
+{% block title %} Acerca de nuestra Biblioteca {% endblock %}
+
+
+{% block content %}
+<nav class="navbar">
+    <div class="header-2">
+        <ul>
+            <p class="nameUser">Menú</p>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/InicioLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-estate"></i>
+                    </span>
+                    <span class="title">Inicio</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/exploreBooksLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-books"></i>
+                    </span>
+                    <span href="/exploreBooksLibrarian" class="title">Explorar Libros</span>
+                </a>
+            </li>
+            <li class="list active">
+                <b></b>
+                <b></b>
+                <a href="/aboutOnLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-question-circle"></i>
+                    </span>
+                    <span href="/aboutOnLibrarian" class="title">Acerca de</span>
+                </a>
+            </li>
+            <hr
+                style="border: 2px solid #EEE7CE; border-radius: 2px; opacity: 1; width: 90%; margin-left: -2%; box-shadow: 0 0 2px rgb(0, 0, 0);">
+            <!-----------------   FUNCTIONS LIBRARYAN   ----------------->
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showMembers">
+                    <span class="icon">
+                        <i class="uil uil-user-plus" style="margin-left: 8%;"></i>
+                    </span>
+                    <span class="title">Socios</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showPrestamo">
+                    <span class="icon">
+                        <i class="uil uil-book-reader"></i>
+                    </span>
+                    <span class="title">Prestamos</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showDevolution">
+                    <span class="icon">
+                        <i class="uil uil-clock"></i>
+                    </span>
+                    <span class="title">Devoluciones</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="toggle">
+        <ion-icon name="menu-outline" class="open"></ion-icon>
+        <ion-icon name="close-outline" class="close"></ion-icon>
+    </div>
+</nav>
+
+<h4 class="titleAboutOn">Acerca de nuestra Biblioteca</h4><br>
+
+<div style="background-color: #232d3500; margin-top: 1.3%; margin-bottom: 1.2%; padding-top: 2%; padding-bottom: 2%;">
+    <div style="margin-left: auto; margin-right: auto;">
+
+
+        <div class="card mb-3 tarjetaAboutOn">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex justify-content-center align-items-center"
+                    style="background-color: #248d8d; border-radius: 3%;">
+                    <i class="uil uil-clock iconCard"></i>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Horarios de atención</h5>
+                        <p class="card-text">Lunes a Viernes</p>
+                        <p class="card-text2">08:00hs a 22:00hs</p><br>
+                        <p class="card-textTitulo2">Sábado, Domingo y Feriados</p>
+                        <p class="card-text2" style="margin-bottom: -1%;">08:00hs a 18:00hs</p>
+                    </div>
+                </div>
+            </div>
+        </div><br><br>
+
+
+        <div class="card mb-3 tarjetaAboutOn">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex justify-content-center align-items-center"
+                    style="background-color: #f5b914; border-radius: 3%;">
+                    <i class="uil uil-location-point iconCard"></i>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Visitanos</h5>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13314.070416872139!2d-67.5533186!3d-33.4618724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xaa9a3b65f425a6ac!2sBiblioteca%20P%C3%BAblica%20Municipal%20%22%20Enrique%20Dussell%22!5e0!3m2!1ses!2sar!4v1670799012880!5m2!1ses!2sar"
+                            width="auto" height="auto" style="border:0; margin-top: -3%;" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <p class="card-text"
+                            style="margin-bottom: -3%; margin-top: 1.5%; font-size: 75%; color: #ffa600;">La Paz -
+                            Mendoza</p>
+                    </div>
+                </div>
+            </div>
+        </div><br><br>
+
+
+        <div class="card mb-3 tarjetaAboutOn">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex justify-content-center align-items-center"
+                    style="background-color: #D90E40; border-radius: 3%;">
+                    <i class="uil uil-envelope iconCard"></i>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Email</h5>
+                        <p class="card-text" style="margin-bottom: 4%;">Contactanos
+                            y visita nuestras diferentes salas recreativas con tu escuela o institución educativa.
+                        </p>
+                        <a href="mailto:bibliotecae.dussel2022@gmail.com" class="linkEmail"
+                            style="font-size: 90%; text-align: center; font-weight: 400;">bibliotecae.dussel2022@gmail.com</a><br>
+                        
+                        <ul class="salasAboutOn">
+                            <li>Sala de entretenimientos</li>
+                            <li style="color: #D90E40;">Sala de juegos recreativos</li>
+                            <li>Sala de proyección</li>
+                            <li style="color: #D90E40;">Sala de lectura</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div><br><br>
+
+
+        <div class="card mb-3 tarjetaAboutOn">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex justify-content-center align-items-center"
+                    style="background-color: #145D56; border-radius: 3%;">
+                    <i class="uil uil-user iconCard"></i>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: left;">Enrique Dussel</h5>
+                        <img src="/static/images/EnriqueDussel.jpg" class="rounded float-end imageDussel" alt="auto">
+                        <p class="card-text" style="text-align:center; margin-top: 7%;">"No es nada
+                            descubrir algo
+                            nuevo, hay que descubrir para qué se descubre”.</p>
+                        <p class="card-text"
+                            style="text-align: center; margin-top: 2%; margin-bottom: 4%;"><a
+                                href="https://enriquedussel.com/biografia/" class="linkEmail"
+                                style="font-size: 89%; color: #1c84da;">Visita su Biografía</a></p>
+                    </div>
+                </div>
+            </div>
+        </div><br><br>
+
+    </div>
+</div>
+
+
+
+<div class="newsletterAbout">
+    <h3>¡Te esperamos pronto!</h3>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    let menuToggle = document.querySelector('.navbar .toggle')
+    let Navigation = document.querySelector('.navbar .header-2')
+    menuToggle.onclick = function () {
+        menuToggle.classList.toggle('active')
+        Navigation.classList.toggle('active')
+    }
+
+    for (let i = 0; i < list.length; i++) {
+        list[i].onclick = function () {
+            let j = 0;
+            while (j < list.length) {
+                list[j++].className = 'list'
+            }
+            list[i].className = 'list active';
+        }
+    }
+</script>
+{% endblock %}

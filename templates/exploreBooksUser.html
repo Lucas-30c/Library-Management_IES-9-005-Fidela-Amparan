@@ -1,0 +1,150 @@
+{% extends "layoutUser.html" %}
+
+
+{% block title %} Explorar Libros {% endblock %}
+
+
+{% block content %}
+
+<div class="row3">
+    <div class="content">
+        <h3 style="color: rgba(0, 0, 0, 0);"></h3><br></br>
+    </div>
+
+
+    <form action="/buscarLibros" method='post' style="margin-top: 3%;">
+        <div class="input-box" style="margin-left: auto; margin-right: auto;">
+            <i class="uil uil-search"></i>
+            <input name="search" type="text" placeholder="Buscar libro..." />
+            <button type="submit" class="button">Buscar</button>
+        </div>
+        <span class="spanExplore">Títulos - Autores - Editoriales - ISBN</span>
+    </form>
+</div>
+
+
+
+
+
+
+
+<div class="container" style="margin-left: -4% ; margin-top:2%; display: inline;"></div>
+<div class="row"></div>
+{% for book in books %}
+<div class="card" style="width: 16rem; display: inline-block;">
+    <img src="/static/images/book-3.png" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{book.2}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{book.3}}</h6>
+        <p class="card-text">{{book.1}}</p>
+        <button type="button" class="btn6" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Lo quiero!</button>
+    </div>
+</div>
+{% endfor %}
+</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdrop"><i class="uil uil-book-alt"
+                        style="color: #145D56;"></i> Atención</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="text-align: left; font-size: 85%; font-weight: 450;">
+                <i class="uil uil-angle-right-b" style="color: #145D56;"></i> ¡Gracias por visitarnos!<br><br>
+
+                <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Te esperamos en la biblioteca para que
+                puedas retirar el libro seleccionado. Con un periodo máximo de 7 días.<br><br>
+
+                <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Visitanos en nuestros <a href="/aboutOn"> horarios
+                    disponibles</a>.<br>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary buttModal2" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary buttModal" data-bs-dismiss="modal"
+                    id="btnModal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
+<nav class="navbar">
+    <div class="header-2">
+        <ul>
+            <p class="nameUser">Menú</p>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/InicioUser">
+                    <span class="icon">
+                        <i class="uil uil-estate"></i>
+                    </span>
+                    <span class="title">Inicio</span>
+                </a>
+            </li>
+            <li class="list active">
+                <b></b>
+                <b></b>
+                <a href="/exploreBooksUser">
+                    <span class="icon">
+                        <i class="uil uil-books"></i>
+                    </span>
+                    <span href="/exploreBooksUser" class="title">Explorar Libros</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/aboutOn">
+                    <span class="icon">
+                        <i class="uil uil-question-circle"></i>
+                    </span>
+                    <span href="/aboutOn" class="title">Acerca de</span>
+                </a>
+            </li>
+            <hr
+                style="border: 2px solid #EEE7CE; border-radius: 2px; opacity: 1; width: 90%; margin-left: -2%; box-shadow: 0 0 2px rgb(0, 0, 0);">
+        </ul>
+    </div>
+    <div class="toggle">
+        <ion-icon name="menu-outline" class="open"></ion-icon>
+        <ion-icon name="close-outline" class="close"></ion-icon>
+    </div>
+</nav>
+<script type="text/javascript">
+    let menuToggle = document.querySelector('.navbar .toggle')
+    let Navigation = document.querySelector('.navbar .header-2')
+    menuToggle.onclick = function () {
+        menuToggle.classList.toggle('active')
+        Navigation.classList.toggle('active')
+    }
+
+
+    for (let i = 0; i < list.length; i++) {
+        list[i].onclick = function () {
+            let j = 0;
+            while (j < list.length) {
+                list[j++].className = 'list'
+            }
+            list[i].className = 'list active';
+        }
+    }
+</script>
+{% endblock %}

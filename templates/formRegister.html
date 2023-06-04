@@ -1,0 +1,158 @@
+{% extends "layoutForm.html" %}
+
+
+{% block title %} Formulario de registro {% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <a href="/">
+        <button type="button" class="btn2 btn-primary">
+            <i class="uil uil-estate"></i> Inicio</button>
+    </a>
+    <div class="forms" style="height: max-content">
+        <div class="form login">
+            <span class="title">Formulario de registro</span>
+
+            <form action="/formularioRegistro/salvarFormularioRegistro" id="form" method="POST">
+
+                <input name="dni" type="hidden" value="{{dni}}" required>
+
+                <div class="input-field">
+                    <input name="Apellido" type="text" placeholder="Apellido ?" id="apellido" required>
+                    <i class="uil uil-user"></i>
+                </div>
+                <div class="input-field">
+                    <input name="Nombre" type="text" placeholder="Nombre ?" id="nombre" required>
+                    <i class="uil uil-user"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="email" type="email" placeholder="Email ?" id="email" required>
+                    <i class="uil uil-envelope icon"></i>
+                </div>
+
+                <div class="input-field">
+                    <input type="password" id="password" name="password" placeholder="Contraseña ?" required>
+                    <button type="button" class="btn btn-link password-toggle" style="margin-left: 86%;"><i
+                            class="uil uil-eye"></i></button>
+                    <i class="uil uil-lock icon"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Celular" type="tel" placeholder="Celular ?" id="celular" required>
+                    <i class="uil uil-mobile-android"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="direccion" type="text" placeholder="Dirección ?" id="direccion" required>
+                    <i class="uil uil-house-user"></i>
+                </div>
+
+                <input name="documentacion" type="hidden" value="{{documentacion}}" required>
+
+                <input name="responsable" type="hidden" value="{{responsable}}" required>
+
+
+                <div class="login-signup" style="margin-top: 11%;">
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" style="font-size: small;">
+                        <i class="uil uil-exclamation-circle" style="color: red;"></i>
+                        Ver condiciones
+                        <i class="uil uil-exclamation-circle" style="color: red;"></i></button>
+                </div>
+                <div class="bstr d-grid col-12 mx-auto" style="margin-top: 5%;">
+                    <button class="btn btn-primary" type="submit" id="btn" disabled>Enviar</button>
+                </div>
+
+                <div class="login-signup" style="margin-bottom: -3%;">
+                    <span class="text">¿Ya eres miembro?
+                        <a href="/login" class="text signup-link">Iniciar Sesión</a>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="staticBackdropLabel"><i class="uil uil-user"></i> Condiciones de socios</h6>
+                <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="font-size: 85%; font-weight: 450;">
+                <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Con el fin de validar los datos
+                previamente ingresados en el formulario de registro, se deberá presentar la siguiente documentación al
+                momento de ir a retirar un libro.<br><br>
+                <i class="uil uil-exclamation-circle" style="color: red;"></i> Esta entrega de documentos se deberá
+                realizar sólo una vez y es obligatoria.<br><br>
+
+                <li>Fotocopia del DNI.</li>
+                <li>Fotocopia de un impuesto(para validar datos).</li><br>
+
+                <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Sin la presentación de los documentos ya
+                mencionados no serán dados de alta como socios de la biblioteca hasta el momento de su entrega.<br><br>
+                <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Los socios qué ya han entregado la
+                documentación correspondiente no será necesario presentarlos nuevamente.<br><br>
+                <i class="uil uil-exclamation-circle" style="color: red;"></i> En caso de cambio de domicilio y/o
+                documento de indentidad deberán renovar los datos en la biblioteca con las fotocopias
+                correspondientes.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary buttModal2" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary buttModal" data-bs-dismiss="modal" id="btnModal">Aceptar
+                    condiciones</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Script -->
+<script type="text/javascript">
+    var passwordToggle = document.querySelector('.password-toggle');
+    var passwordField = document.querySelector('#password');
+
+    passwordToggle.addEventListener('click', function () {
+        var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('uil-eye');
+        this.querySelector('i').classList.toggle('uil-eye-slash');
+    });
+
+    let form = document.querySelector("#form");
+    let btn = document.querySelector("#btn");
+    let btnModal = document.querySelector("#btnModal");
+    let btnModalClicked = false;
+    function habilitar() {
+        btn.disabled = false;
+
+        if (form.apellido.value == "") {
+            btn.disabled = true;
+        } else if (form.nombre.value == "") {
+            btn.disabled = true;
+        } else if (form.email.value == "") {
+            btn.disabled = true;
+        } else if (form.contraseña.value == "") {
+            btn.disabled = true;
+        } else if (form.celular.value == "") {
+            btn.disabled = true;
+        } else if (form.direccion.value == "") {
+            btn.disabled = true;
+        } else if (btnModalClicked == false) {
+            btn.disabled = true;
+        } else {
+            btn.disabled = false;
+        }
+    }
+    btnModal.addEventListener("click", function () {
+        btnModalClicked = true;
+        habilitar();
+    });
+    form.addEventListener("keyup", habilitar)
+</script>
+{% endblock %}

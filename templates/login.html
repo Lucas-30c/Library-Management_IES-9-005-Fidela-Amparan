@@ -1,0 +1,79 @@
+{% extends "layoutForm.html" %}
+
+
+{% block title %} Iniciar Sesión {% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <a href="/">
+        <button type="button" class="btn2 btn-primary" style="margin-bottom: 3%;"><i class="uil uil-estate"></i> Inicio</button>
+    </a>
+    <div class="forms" style="margin-top: auto;">
+        <div class="form login">
+            <span class="title">Iniciar sesión</span>
+
+            <form action="{{ url_for('login') }}" method="post">
+                <div class="input-field">
+                    <input type="text" name="email" placeholder="Email ?" id="email" required>
+                    <i class="uil uil-envelope icon"></i>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="password" name="contraseña" placeholder="Contraseña ?" required>
+                    <button type="button" class="btn btn-link password-toggle" style="margin-left: 86%;"><i
+                            class="uil uil-eye"></i></button>
+                    <i class="uil uil-lock icon"></i>
+                </div>
+
+
+                <div class="checkbox-text">
+                    <!-- <a href="#" class="text">¿Olvidaste tu contraseña?</a> -->
+                </div>
+
+                <div class="input-field button">
+                    <input type="submit" value="Iniciar sesión">
+                </div>             
+            </form>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 3%;">
+                        <i class="uil uil-exclamation-circle" style="color: red;"></i> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+        
+                {% if category == 'success' %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 3%;">
+                        <i class="uil uil-check-circle" style="color: green; font-size: 109%;"></i><strong> ¡Éxito!</strong> 
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="login-signup" style="margin-bottom: -3%;">
+                <span class="text">¿No eres miembro?
+                    <a href="/selectionAge" class="text signup-link">Regístrate ahora</a>
+                </span>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<!-- Script -->
+<script type="text/javascript">
+    var passwordToggle = document.querySelector('.password-toggle');
+    var passwordField = document.querySelector('#password');
+
+    passwordToggle.addEventListener('click', function () {
+        var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('uil-eye');
+        this.querySelector('i').classList.toggle('uil-eye-slash');
+    });
+</script>
+{% endblock %}

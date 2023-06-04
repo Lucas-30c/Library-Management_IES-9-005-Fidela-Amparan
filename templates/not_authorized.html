@@ -1,0 +1,43 @@
+{% extends "layoutPublic.html" %}
+
+{% block title %} Biblioteca Enrique Dussel {% endblock %}
+
+
+{% block content %}
+<div
+    style="text-align: center; align-items: center; margin: auto; background-color: rgb(50, 58, 65); padding-top: 2%; padding-bottom: 3%; font-size: 88%;">
+    <h1 style="color: red; margin-top: 1.5%">User: {{user_id}}</h1>
+    <br>
+    <p style="color: white;">Usted no tiene autorización para realizar esta operación!</p>
+    <p style="color: white;">¡ Este incidente será reportado !</p>
+    <p style="color: white; margin-bottom: 3.5%;"><i class="uil uil-exclamation-circle" style="color: red;"></i>
+        Su sesión a sido cerrada. <i class="uil uil-exclamation-circle" style="color: red;"></i></p>
+
+
+    <a href="/login" class="btnInfo">
+        <i class="uil uil-arrow-circle-left"></i> Volver
+    </a>
+</div>
+
+
+<style>
+    .btnInfo {
+        margin: auto;
+        padding: .70rem 1.5rem;
+        border-radius: .5rem;
+        color: #000000;
+        background: #FFC728;
+        border-color: #e2e2e200;
+        font-size: 1rem;
+        cursor: pointer;
+        font-weight: 580;
+    }
+
+    .btnInfo:hover {
+        font-size: 1rem;
+        font-weight: 580;
+        color: black;
+        background: #ffbe0d;
+    }
+</style>
+{% endblock %}

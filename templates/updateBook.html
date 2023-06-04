@@ -1,0 +1,92 @@
+{% extends "layoutForm.html" %}
+
+
+{% block title %} Editar Libro {% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <a href="/exploreBooksLibrarian">
+        <button type="button" class="btn2 btn-primary"><i class="uil uil-arrow-circle-left"></i> Libros</button>
+    </a>
+    <div class="forms" style="height: max-content">
+        <div class="form login">
+            <span class="title">Actualizar Libro</span>
+
+            <form action="/updateBook/{{book.0}}" method="POST">
+                <div class="input-field">
+                    <input name="id" type="text" placeholder="N° Inventario: " value="{{book.0}}" disabled required style="color: rgb(92, 93, 97); background-color: rgba(0, 255, 255, 0);">
+                    <i class="uil uil-book-alt"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Descripcion" type="text" placeholder="Descripción ?" value="{{book.1}}" required>
+                    <i class="uil uil-book-alt"></i>
+                </div>
+                <div class="input-field">
+                    <input name="Titulo" type="text" placeholder="Título ?" value="{{book.2}}" required>
+                    <i class="uil uil-book-alt"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Autor" type="text" placeholder="Autor/res ?" value="{{book.3}}" required>
+                    <i class="uil uil-user"></i>
+                </div>
+                <div class="input-field">
+                    <input name="NumeroTopologia" type="text" placeholder="N° de topología (CDD) ?" value="{{book.4}}" required>
+                    <i class="uil uil-list-ol"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Editorial" type="text" placeholder="Editorial ?" value="{{book.5}}" required>
+                    <i class="uil uil-clipboard-alt"></i>
+                </div>
+                <div class="input-field">
+                    <input name="NumeroRegistroNacional" type="text" placeholder="Número ISBN ?" value="{{book.6}}" required>
+                    <i class="uil uil-list-ol"></i>
+                </div>
+
+                <div class="input-field" style="margin-bottom: -6.5%;">
+                    <select class="form-select" aria-label="Default select example" id="Soporte" name="Soporte" required>
+                        <option value="{{book.7}}" style="color: gray;">{{book.7}}</option><br><br>
+                        <option disabled value="" style="background-color: rgba(209, 209, 209, 0.466);"></option>
+                        <option name="Soporte" value="Papel">Papel</option>
+                        <option name="Soporte" value="Digital">Digital</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <input name="Estanteria" type="number" placeholder="Número estantería ?" value="{{book.8}}" required>
+                    <i class="uil uil-books"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Copias" type="number" placeholder="Número de copias ?" value="{{book.9}}" required>
+                    <i class="uil uil-books"></i>
+                </div>
+
+                <div class="input-field" style="margin-bottom: -6.5%;">
+                    <select class="form-select" aria-label="Default select example" id="Lectura" name="Lectura" required>
+                        <option value="{{book.10}}" style="color: gray;">{{book.10}}</option><br><br>
+                        <option disabled value="" style="background-color: rgba(209, 209, 209, 0.466);"></option>
+                        <option name="Lectura" value="Sala">Sala</option>
+                        <option name="Lectura" value="Libre">Libre</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <input name="Estado" type="text" placeholder="Estado ?" value="{{book.11}}" disabled required>
+                    <i class="uil uil-books"></i>
+                </div>
+                    
+                <div class="input-field button">
+                    <input  type="submit" value="Registrar nuevos datos">
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

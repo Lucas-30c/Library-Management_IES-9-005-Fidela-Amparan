@@ -1,0 +1,54 @@
+{% extends "layoutForm.html" %}
+
+
+{% block title %} Registro de Prestamos {% endblock %}
+
+
+
+{% block content %}
+<div class="containerPrestamo">
+    <a href="/exploreBooksLibrarian">
+        <button type="button" class="btn2b btn-primary"><i class="uil uil-arrow-circle-left"></i> Volver</button>
+    </a>
+    <div class="formsPrestamo">
+        <div class="formPrestamo login" style="height: max-content">
+            <span class="title" style="margin-bottom: 30%">Registro de Prestamos</span>
+            <br>
+            <br>
+            <form action="/formPrestamo/{{book[0]}}" id="formPrestamo" method="POST">
+                <select name="socio" class="form-select" id="socio" data-placeholder="Seleccione el Socio">
+                    <option></option>
+                    {% for member in members %}
+                    <option value={{member.0}}>{{member.0}} | {{member.2}}, {{member.3}}</option>
+                    {% endfor %}
+                </select>
+                <br>
+
+                <div class="input-field" style="margin-bottom: 8%; margin-top: 4%;">
+                    <h4 style="font-size: large;">Libro seleccionado:  {{book[2]}}</h4>
+                    <hr>
+                    <h4 style="font-size: large;">Número de invetario:  {{book[0]}}</h4>
+                    <hr>
+                    <h4 style="font-size: large;">Fecha de Inicio:  {{dateNow.strftime('%d/%m/%Y')}}</h4>
+                    <hr>
+                    <h4 style="font-size: large;">Fecha de Devolución: {{dateDevolution.strftime('%d/%m/%Y')}}</h4>
+                </div>
+                
+                <div class="input-field">
+                    <input name="idbibliotecaria" type="hidden" value="{{bibliotecaria.0}}" required>
+                </div>
+
+                <div class="input-field">
+                    <input name="estado" type="hidden" value="{{estado.7}}" required>
+                </div>
+
+                <div class="bstr d-grid col-12 mx-auto">
+                    <button class="btn btn-primary" type="submit" id="botonRegistrar" disabled>Registrar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

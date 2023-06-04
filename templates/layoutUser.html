@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+    <link rel="icon" type="image/png" href="/static/images/iconpage.png" />
+    <!-- ===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- Data tables -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+        </script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+</head>
+
+<body class="grid-container">
+    <!----------- ENCABEZADO ----------->
+    <header class="header">
+        <div class="d-flex bd-highlight mb-3">
+            <div class="me-auto p-2 bd-highlight" style="margin-top: -0.27%;"><a href="/InicioUser" class="logo"> <i
+                        class="uil uil-book-alt"></i> Biblioteca Dussel</a></div>
+            <div class="p-2 bd-highlight"><a href="/exploreBooksUser" class="logoLupa"> <i
+                        class="fa-solid fa-magnifying-glass"></i></a></div>
+            <div class="p-2 bd-highlight"></div>
+            <div class="p-2 bd-highlight">
+                <div class="loggedin">
+                    <div class="wrapper">
+                        <div class="right-menu" style="margin-left: -100%; margin-top: -13%;">
+                            <button class="menu-button"><i class="uil uil-user"></i></button>
+                            <div class="dropdown-menu" style="font-size: 80%; margin-left: -430%;">
+                                <a href="/logout"><i class="uil uil-sign-in-alt"
+                                        style="font-size: 140%; margin-right: 5%;"></i>Cerrar sesión</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-2 bd-highlight">
+                <div class="container__menu">
+                    <div class="menu">
+                        <i class="uil uil-bars" id="btn_menu"></i>
+                        <div id="back_menu"></div>
+                        <nav id="nav">
+                            <ul>
+                                <li><a href="/InicioUser"><i class="uil uil-estate"></i>  Inicio</a></li>
+                                <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                                <li><a href="/exploreBooksUser"><i class="uil uil-books"></i>  Explorar Libros</a></li>
+                                <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                                <li><a href="/aboutOn"><i class="uil uil-question-circle"></i>  Acerca de</a></li>
+                                <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                                <li><a href="/logout"><i class="uil uil-sign-in-alt"></i> Cerrar sesión</a></li> 
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Modal Editar Perfil -->
+    <div class="modal fade" id="staticBackdropUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        <i class="uil uil-exclamation-circle" style="color: red;"></i>
+                        Advertencia
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align: left; font-size: 85%;">
+                    <i class="uil uil-angle-right-b" style="color: #145D56;"></i> La modificación y actualización de
+                    datos debe ser aprobada por las bibliotecarias.<br><br>
+
+                    <li>Para poder actualizar datos ya sea cambio de domicilio, modificación del email,
+                        número de celular, entre otros. Deberás presentarte en la biblioteca para qué las bibliotecarias
+                        inicien la actualización de datos.</li><br>
+
+                    <li>Recuerda llevar fotocopia del nuevo DNI y/o fotocopia de un impuesto con los datos
+                        renovados del domicilio en el caso de querer actualizar estos últimos.</li><br>
+
+                    <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Consulta nuestros<a href="/aboutOn">
+                        horarios de atención</a>.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary buttModal2" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary buttModal" data-bs-dismiss="modal"
+                        id="btnModal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!----------- CONTENIDO PRINCIPAL ----------->
+    <article class="main">
+
+        {% block content %}
+
+
+
+        {% endblock %}
+
+    </article>
+
+
+
+
+    <!----------- PIE DE PÁGINA ----------->
+    <footer class="footer">
+        <div class="items d-flex flex-sm-row flex-column justify-content-between align-items-center">
+            <div class="block-item1">
+                <i class="uil uil-envelope" style="font-size: 250%; color: #248d8d;"></i>
+                <div class="sub-head">Email</div>
+                <a href="mailto:bibliotecae.dussel2022@gmail.com" class="desc"
+                    style="font-size: 59%;">bibliotecae.dussel2022@gmail.com</a>
+            </div>
+            <div class="block-item2">
+                <i class="uil uil-clock" style="font-size: 250%; color: #f5b914;"></i>
+                <div class="sub-head">Horarios</div>
+                <a href="/aboutOn" class="desc" style="font-size: 75%;">Horarios de atención</a>
+            </div>
+            <div class="block-item3">
+                <i class="uil uil-location-point" style="font-size: 250%; color: #D90E40;"></i>
+                <div class="sub-head">Visitanos</div>
+                <a href="https://goo.gl/maps/928PfaZpJYw8VqAx5" class="desc" style="font-size: 75%;">Ubicación
+                    Biblioteca</a>
+            </div>
+        </div>
+        <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -1.5%;">
+
+        <div class="grupo-1">
+            <div class="box">
+                <div class="linkPages">
+                    <h2 style="margin-bottom: 2%;">BIBLIOTECA DUSSEL</h2>
+                    <a href="/homeUser" class="title1">Inicio |</a>
+                    <a href="/exploreBooksUser" class="title2">Explorar Libros |</a>
+                    <a href="/aboutOn" class="title3">Acerca de</a>
+                </div>
+            </div>
+        </div>
+        <div class="grupo-2">
+            <small>&copy; 2023 <b>Biblioteca Enrique Dussel</b> - Todos los Derechos Reservados.</small>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="/static/js/script.js"></script>
+</body>
+
+</html>

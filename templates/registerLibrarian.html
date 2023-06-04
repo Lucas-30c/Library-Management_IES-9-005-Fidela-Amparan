@@ -1,0 +1,62 @@
+{% extends "layoutForm.html" %}
+
+
+{% block title %} Formulario de registro {% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <a href="/">
+        <button type="button" class="btn2 btn-primary">
+            <i class="uil uil-estate"></i> Inicio</button>
+    </a>
+    <div class="forms" style="height: max-content">
+        <div class="form login">
+            <span class="title">Formulario de registro</span>
+
+
+            <form action="/registerLibrarian" id="form" method="POST">
+                <div class="input-field">
+                    <input name="email" type="email" placeholder="Ingresa tú email" id="email" required>
+                    <i class="uil uil-envelope icon"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Nombre" type="text" placeholder="Ingresa tú nombre" id="nombre" required>
+                    <i class="uil uil-user"></i>
+                </div>
+                <div class="input-field">
+                    <input name="Apellido" type="text" placeholder="Ingresa tú apellido" id="apellido" required>
+                    <i class="uil uil-user"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="password" type="password" placeholder="Ingresa tú contraseña" id="password" required>
+                    <i class="uil uil-lock icon"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="Celular" type="tel" placeholder="Ingresa tú celular" id="celular" required>
+                    <i class="uil uil-mobile-android"></i>
+                </div>
+
+                <div class="input-field" style="margin-bottom: -6.5%;">
+                    <select class="form-select" aria-label="Default select example" id="Rol" name="Rol" required>
+                        <option disabled selected value="" style="color: gray;">Rol ?</option>
+                        <option name="Rol" value="LIB_AUX">LIB_AUX</option>
+                        <option name="Rol" value="LIB">LIB</option>
+                        <option name="Rol" value="SU">SU</option>
+                    </select>
+                </div>
+
+                <div class="bstr d-grid col-12 mx-auto" style="margin-top: 5%;">
+                    <button class="btn btn-primary" type="submit" id="btn">Enviar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

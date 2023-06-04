@@ -1,0 +1,41 @@
+{% extends "layoutForm.html" %}
+
+
+{% block title %} Selección de Socio {% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <a href="/">
+        <button type="button" class="btn2 btn-primary" style="margin-bottom: 3%;"><i class="uil uil-estate"></i> Inicio</button>
+    </a>
+    <div class="forms">
+        <div class="form login">
+            <span class="title">Selección de Socio</span>
+
+            <h5 style="margin-top: 10%; margin-bottom: 8%; font-size: 87%;">Selecciona tú edad para iniciar el
+                registro de socio.</h5>
+
+            <a href="/formRegisterMenor" style="text-decoration: none;">
+                <div class="d-grid gap-2">
+                    <button class="btnF btn-primary" type="button">Menor de 18 años</button>
+                </div>
+            </a>
+
+            
+            <a href="/formRegister" style="text-decoration: none;">
+                <div class="d-grid gap-2" style="margin-top: 5%; margin-bottom: 10%;">
+                    <button class="btnF btn-primary" type="button">Mayor de 18 años</button>
+                </div>
+            </a>
+
+            <div class="login-signup" style="margin-bottom: -2%;">
+                <span class="text">¿Ya eres miembro?
+                    <a href="/login" class="text signup-link">Iniciar Sesión</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

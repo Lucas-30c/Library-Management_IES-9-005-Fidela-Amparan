@@ -1,0 +1,360 @@
+{% extends "layoutLibrarian.html" %}
+
+
+{% block title %} Listado de Prestamos {% endblock %}
+
+
+{% block content %}
+<script src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.18/datatables.min.js"></script>
+<nav class="navbar">
+    <div class="header-2">
+        <ul>
+            <p class="nameUser">Menú</p>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/InicioLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-estate"></i>
+                    </span>
+                    <span class="title">Inicio</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/exploreBooksLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-books"></i>
+                    </span>
+                    <span href="/exploreBooksLibrarian" class="title">Explorar Libros</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/aboutOnLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-question-circle"></i>
+                    </span>
+                    <span href="/aboutOnLibrarian" class="title">Acerca de</span>
+                </a>
+            </li>
+            <hr
+                style="border: 2px solid #EEE7CE; border-radius: 2px; opacity: 1; width: 90%; margin-left: -2%; box-shadow: 0 0 2px rgb(0, 0, 0);">
+            <!-----------------   FUNCTIONS LIBRARYAN   ----------------->
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showMembers">
+                    <span class="icon">
+                        <i class="uil uil-user-plus" style="margin-left: 8%;"></i>
+                    </span>
+                    <span class="title">Socios</span>
+                </a>
+            </li>
+            <li class="list active">
+                <b></b>
+                <b></b>
+                <a href="/showPrestamo">
+                    <span class="icon">
+                        <i class="uil uil-book-reader"></i>
+                    </span>
+                    <span class="title">Prestamos</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showDevolution">
+                    <span class="icon">
+                        <i class="uil uil-clock"></i>
+                    </span>
+                    <span class="title">Devoluciones</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="toggle">
+        <ion-icon name="menu-outline" class="open"></ion-icon>
+        <ion-icon name="close-outline" class="close"></ion-icon>
+    </div>
+</nav>
+
+
+<!-- Botón manual de uso -->
+<div class="d-grid gap-1 d-md-flex justify-content-md-end" style="position: relative;">
+    <a href="https://sites.google.com/view/manualbibliotecaedussel/pr%C3%A9stamos"><button type="button"
+            class="btn btn-outline-info boton" id="boton-nuevo" title="Guía"
+            style="padding: 0px 8px 0px 8px; border-radius: .25rem;"><i class="uil uil-question-circle"
+                style="color: #ffffff; font-size: 125%"></i></button></a>
+</div>
+
+<!-- Contenido -->
+<div style="width: 91.5%; margin-left: 8.3%; color: #EEE7CE; margin-bottom: 1%;">
+    <h6 class="titlePage">Gestión de Préstamos</h6>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'devolutionExito' %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert"
+        style="width: 32%; font-size: medium; margin-top: -2%; margin-bottom: -1%;">
+        <i class="uil uil-check-circle" style="color: blue; font-size: 109%;"></i><strong> ¡Éxito!</strong>{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            style="margin-top: -0.9%;"></button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+    <table id="" class="display2 table table-striped" cellspacing="1" cellpadding="1" width="100%"
+        style="background-color: #e0e0e0; border: 0.1px solid #ffffff; border-radius: .40rem; color: rgb(0, 0, 0);">
+        <thead style="border-radius: 30%;">
+            <tr style="color: #FFC728; background-color: #315c53; font-size: 72%;">
+                <th style="width: 0.1%; text-align: center; font-weight: 450;">#</th>
+                <th style="width: 17%; text-align: center; font-weight: 450;">Socio / N°</th>
+                <th style="width: 8.5%; text-align: center; font-weight: 450;">Bibliotecaria</th>
+                <th style="width: 18%; text-align: center; font-weight: 450;">Libro / N° inventario</th>
+                <th style="width: 4%; text-align: center; font-size: 85%; font-weight: 450;">Fecha de Inicio</th>
+                <th style="width: 4%; text-align: center; font-size: 85%; font-weight: 450;">Fecha de Devolución</th>
+                <th style="width: 2.9%; text-align: center; font-weight: 450;">Estado</th>
+                <th style="width: 2.5%; text-align: center; font-weight: 450;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody style="font-size: 67.5%; font-weight: 590;">
+            {% for prestamo in prestamos %}
+            <tr style="border-color: rgb(155, 155, 155);">
+                <!-- <td data-label="#">{{prestamo.prestamo.id}}</td> -->
+                <td data-label="#" style="text-align: center;">{{loop.index}}</td>
+                <td data-label="Socio" style="text-align: left;">
+
+                    <!-- BOTON VER SOCIO -->
+                    <button type="button" class="btnShowMember btn-info" data-bs-toggle="modal"
+                        data-bs-target="#Modal2{{prestamo.prestamo.id}}" title={{prestamo.socio.id}}
+                        style="width: auto;">
+                        <i class="uil uil-user"></i>
+                    </button>
+
+
+                    <!-- MODAL SOCIO -->
+                    <div class="modal fade" id="Modal2{{prestamo.prestamo.id}}" data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel2">
+                                        <i class="uil uil-user" style="color: #145D56;"></i>
+                                        Ver Socio
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                        style="font-size: medium;"></button>
+                                </div>
+                                <div class="modal-body"
+                                    style="margin-top: -3%; margin-bottom: -2%; text-align: center;">
+                                    <i class="uil uil-user" style="font-size: 50px; color: #145D56;"></i>
+                                    <p style="font-size: medium; text-align: left; font-size: 111%;">
+                                        <i class="uil uil-angle-right-b" style="color: #145D56;"></i> N° Socio:
+                                        {{prestamo.socio.id}}
+                                    </p>
+                                    <p style="font-size: medium; text-align: left; font-size: 111%;">
+                                        <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Apellido:
+                                        {{prestamo.socio.apellido}}
+                                    </p>
+                                    <p style="font-size: medium; text-align: left; font-size: 111%;">
+                                        <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Nombre:
+                                        {{prestamo.socio.nombre}}
+                                    </p>
+                                    <p style="font-size: medium; text-align: left; font-size: 111%;">
+                                        <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Email:
+                                        {{prestamo.socio.email}}
+                                    </p>
+                                    <p style="font-size: medium; text-align: left; font-size: 111%;">
+                                        <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Celular:
+                                        {{prestamo.socio.celular}}
+                                    </p>
+                                    <p style="font-size: medium; text-align: left; font-size: 111%;">
+                                        <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Direccion:
+                                        {{prestamo.socio.direccion}}
+                                    </p>
+                                    <p style="font-size: medium; text-align: left; font-size: 111%;">
+                                        <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Documentación:
+                                        {{prestamo.socio.documentacion}}
+                                    </p>
+                                    <p style="font-size: medium; text-align: left; font-size: 111%;">
+                                        <i class="uil uil-angle-right-b" style="color: #145D56;"></i> Responsable:
+                                        {{prestamo.socio.responsable}}
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary buttModal2"
+                                        data-bs-dismiss="modal">Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{prestamo.socio.apellido}} {{prestamo.socio.nombre}} / {{prestamo.socio.id}}
+                </td>
+                <td data-label="Bibliotecaria" style="text-align: left;">{{prestamo.bibliotecaria.apellido}}
+                    {{prestamo.bibliotecaria.nombre}}</td>
+                <td data-label="Libro" style="text-align: left;">{{prestamo.libro.titulo}} / {{prestamo.libro.id}}</td>
+                <td data-label="Fecha de Inicio" style="text-align: left;">
+                    {{prestamo.prestamo.fechainicio.strftime('%d/%m/%Y')}}</td>
+                <td data-label="Fecha de Devolución" style="text-align: left;">
+                    {{prestamo.prestamo.fechadevolucion.strftime('%d/%m/%Y')}}</td>
+                <td data-label="Estado" style="text-align: left;">
+                    {% if prestamo.prestamo.getState() == "Activo" %}
+                    <p style="color: green;">{{prestamo.prestamo.getState()}}</p>
+                    {% elif prestamo.prestamo.getState() == "Vencido" %}
+                    <p style="color: red;">{{prestamo.prestamo.getState()}}</p>
+                    {% else %}
+                    {{prestamo.prestamo.getState()}}
+                    {% endif %}
+                </td>
+                <td data-label="Acciones" style="text-align: center;">
+
+                    <!-- BOTÓN REGISTRAR DEVOLUCION -->
+                    <button type="button" class="btnMember btn-info" data-bs-toggle="modal"
+                        data-bs-target=#Modal{{prestamo.prestamo.id}} title="Registrar Prestamo" style="width: auto;">
+                        <i class="uil uil-history-alt"></i></button>
+
+
+
+                    <!-- MODAL CONFIRMAR DEVOLUCION -->
+                    <div class="modal fade" id=Modal{{prestamo.prestamo.id}} data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="uil uil-history-alt"
+                                            style="color: #145D56;"></i>
+                                        Registrar Devolución</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                        style="font-size: medium;"></button>
+                                </div>
+                                <div class="modal-body" style="margin-top: -3%; margin-bottom: -2%;">
+                                    <i class="uil uil-history-alt" style="font-size: 50px; color: #145D56"></i>
+                                    <p style="font-size: medium;">¿Deseas registrar el libro como devolución?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary buttModal2"
+                                        data-bs-dismiss="modal">Cancelar
+                                    </button>
+                                    <abbr title="Registrar Devolución {{prestamo.prestamo.id}}">
+                                        <form
+                                            action="{{ url_for('formDevolution', prestamo_id=prestamo.prestamo.id, libro_id=prestamo.libro.id) }}"
+                                            method="post">
+                                            <button type="submit" class="btn btn-primary buttModal">Aceptar</button>
+                                        </form>
+                                    </abbr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    table {
+        table-layout: fixed;
+        width: 250px;
+    }
+
+    .btnShowMember {
+        margin-left: -2%;
+        width: 9%;
+        background-color: #0FA3B9;
+        color: #ffffff;
+        border-radius: .3rem;
+        border: .1px solid #ffffff;
+        padding: .25rem .35rem;
+        align-items: center;
+    }
+
+    .titlePage {
+        background-color: #315c53;
+        margin-bottom: 3.4%;
+        padding: 7.7px 0px 6px 0px;
+        width: 17%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: .45rem;
+        font-size: 95%;
+        font-weight: 440;
+    }
+
+    #boton-nuevo {
+        margin-left: -3%;
+        position: absolute;
+        justify-content: end;
+        background-color: #0FA3B9;
+        /* background-color: #0fa2b936; */
+    }
+
+    #boton-nuevo:hover {
+        border-color: #058ea3;
+        background-color: #058ea3;
+    }
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("table.display2 tfoot th").each(function () {
+            var title = $(this).text();
+        });
+        var table = $("table.display2").DataTable({
+            "dom": 'B<"float-right"f>t<"float-left"l><"float-right"p><"clearfix">',
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
+                "searchPlaceholder": "Buscar un prestamo"
+            },
+            autoWidth: false,
+        });
+
+        $("table.display2 thead").on("keyup", "input", function () {
+            table.column($(this).parent().index())
+                .search(this.value)
+                .draw();
+        });
+    });
+
+    let menuToggle = document.querySelector('.navbar .toggle')
+    let Navigation = document.querySelector('.navbar .header-2')
+    menuToggle.onclick = function () {
+        menuToggle.classList.toggle('active')
+        Navigation.classList.toggle('active')
+    }
+
+    for (let i = 0; i < list.length; i++) {
+        list[i].onclick = function () {
+            let j = 0;
+            while (j < list.length) {
+                list[j++].className = 'list'
+            }
+            list[i].className = 'list active';
+        }
+    }
+
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,288 @@
+{% extends "layoutLibrarian.html" %}
+
+
+{% block title %} Explorar Libros {% endblock %}
+
+
+{% block content %}
+
+<!-- Botón manual de uso -->
+<div class="d-grid gap-1 d-md-flex justify-content-md-end" style="position: relative;">
+    {% if user_rol == 'LIB_AUX' %}
+    <a href="https://sites.google.com/view/manualbibliotecaedussel/libros"><button type="button"
+            class="btn btn-outline-info boton" id="boton-nuevo" title="Guía"
+            style="padding: 0px 8px 0px 8px; border-radius: .25rem;"><i class="uil uil-question-circle"
+                style="color: #ffffff; font-size: 125%"></i></button></a>
+
+    {% else %}
+    <a href="https://sites.google.com/view/manualbibliotecaedussel/libros-bibliotecaria"><button type="button"
+            class="btn btn-outline-info boton" id="boton-nuevo" title="Guía"
+            style="padding: 0px 8px 0px 8px; border-radius: .25rem;"><i class="uil uil-question-circle"
+                style="color: #ffffff; font-size: 125%"></i></button></a>
+    {% endif %}
+</div>
+
+
+<div class="row3">
+    <div class="content">
+        <h3 style="color: rgba(0, 0, 0, 0);"></h3><br></br>
+    </div>
+
+
+
+
+    <form action="/buscarLibro" method='post' style="margin-top: 3%;">
+        <div class="input-box" style="margin-left: auto; margin-right: auto;">
+            <i class="uil uil-search"></i>
+            <input name="search" type="text" placeholder="Buscar libro..." />
+            <button type="submit" class="button">Buscar</button>
+        </div>
+        <span class="spanExplore">Títulos - Autores - Editoriales - ISBN</span>
+    </form>
+
+    {% if user_rol != 'LIB_AUX' %}
+    <a href="/registrarLibros" class="btn btn-link">
+        <i class="uil uil-book-alt"></i> Registrar Libro
+    </a>
+    {% endif %}
+
+</div>
+
+
+
+
+
+
+<div class="container" style="margin-left: -4% ; margin-top:2%; display: inline;"></div>
+<div class="row"></div>
+<!-- {% for book in books %}
+<div class="card h-10" style="width: 16rem; display: inline-block;">
+    <img src="/static/images/book-3.png" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{book.2}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{book.3}}</h6>
+        <p class="card-text">{{book.1}}</p>
+        <hr class="my-3 border-5" style="background-color: rgb(0, 0, 0);">
+        {% if book.11 == "Disponible" %}
+        <p class="card-text" style="color: green;">{{book.11}}</p>
+        <div style="margin-bottom: 1.7rem;">
+            <a href="/formPrestamo/{{book.0}}" class="btn6">Prestamo</a>
+        </div>
+        {% elif book.11 == "Prestado" %}
+        <p class="card-text" style="color: rgb(255, 123, 0);">{{book.11}}</p>
+        <div style="margin-bottom: 1.7rem;">
+            <span class="btn6 btn-disabled">Prestamo</span>
+        </div>
+        {% endif %}
+        <div style="margin-bottom: .6rem;">
+            <a href="/ver_libro/{{book.0}}" class="btn6" style="padding: .6rem 2.2rem;">Ver Libro</a>
+        </div>
+    </div>
+</div>
+{% endfor %} -->
+
+<div class="card-container">
+    {% for book in books %}
+    <div class="card" style="width: 16rem; display: inline-block;">
+        <img src="/static/images/book-3.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{book.2}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{book.3}}</h6>
+            <p class="card-text">{{book.1}}</p>
+            <hr class="my-3 border-5" style="background-color: rgb(0, 0, 0);">
+            {% if book.11 == "Disponible" %}
+            <p class="card-text" style="color: green;">{{book.11}}</p>
+            <div style="margin-bottom: 1.7rem;">
+                <a href="/formPrestamo/{{book.0}}" class="btn6">Prestamo</a>
+            </div>
+            {% elif book.11 == "Prestado" %}
+            <p class="card-text" style="color: rgb(255, 123, 0);">{{book.11}}</p>
+            <div style="margin-bottom: 1.7rem;">
+                <span class="btn6 btn-disabled">Prestamo</span>
+            </div>
+            {% endif %}
+            <div style="margin-bottom: .6rem;">
+                <a href="/ver_libro/{{book.0}}" class="btn6" style="padding: .6rem 2.2rem;">Ver Libro</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
+<nav class="navbar">
+    <div class="header-2">
+        <ul>
+            <p class="nameUser">Menú</p>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/InicioLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-estate"></i>
+                    </span>
+                    <span class="title">Inicio</span>
+                </a>
+            </li>
+            <li class="list active">
+                <b></b>
+                <b></b>
+                <a href="/exploreBooksLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-books"></i>
+                    </span>
+                    <span href="/exploreBooksLibrarian" class="title">Explorar Libros</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/aboutOnLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-question-circle"></i>
+                    </span>
+                    <span href="/aboutOnLibrarian" class="title">Acerca de</span>
+                </a>
+            </li>
+            <hr
+                style="border: 2px solid #EEE7CE; border-radius: 2px; opacity: 1; width: 90%; margin-left: -2%; box-shadow: 0 0 2px rgb(0, 0, 0);">
+            <!-----------------   FUNCTIONS LIBRARYAN   ----------------->
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showMembers">
+                    <span class="icon">
+                        <i class="uil uil-user-plus" style="margin-left: 8%;"></i>
+                    </span>
+                    <span class="title">Socios</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showPrestamo">
+                    <span class="icon">
+                        <i class="uil uil-book-reader"></i>
+                    </span>
+                    <span class="title">Prestamos</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showDevolution">
+                    <span class="icon">
+                        <i class="uil uil-clock"></i>
+                    </span>
+                    <span class="title">Devoluciones</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="toggle">
+        <ion-icon name="menu-outline" class="open"></ion-icon>
+        <ion-icon name="close-outline" class="close"></ion-icon>
+    </div>
+</nav>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+{% if category == 'exitoFormPrestamo' %}
+<div class="alert alert-success alert-dismissible fade show" role="alert"
+    style="width: 27.5%; padding: 15px;font-size: medium; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 128, 0, 0.76);">
+    <i class="uil uil-check-circle" style="color: green; font-size: 109%;"></i><strong> ¡Éxito!</strong> {{ message
+    }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="color: red;"></button>
+</div>
+{% endif %}
+
+{% if category == 'bookEdit' %}
+<div class="alert alert-primary alert-dismissible fade show" role="alert" style="width: 27.5%; padding: 15px; 
+    font-size: medium; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 0, 255, 0.76);">
+    <i class="uil uil-check-circle" style="color: blue; font-size: 109%;"></i><strong> ¡Éxito!</strong> {{ message
+    }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<style>
+    #boton-nuevo {
+        position: absolute;
+        margin-left: -3%;
+        margin-top: 2%;
+        justify-content: end;
+        background-color: #0FA3B9;
+        /* background-color: #0fa2b936; */
+    }
+
+    #boton-nuevo:hover {
+        border-color: #058ea3;
+        background-color: #058ea3;
+    }
+
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myBtn').click(function () {
+            $('.toast').toast({
+                animation: false,
+                delay: 4000
+            });
+            $('.toast').toast('show');
+        });
+    });
+
+    let menuToggle = document.querySelector('.navbar .toggle')
+    let Navigation = document.querySelector('.navbar .header-2')
+    menuToggle.onclick = function () {
+        menuToggle.classList.toggle('active')
+        Navigation.classList.toggle('active')
+    }
+
+
+    for (let i = 0; i < list.length; i++) {
+        list[i].onclick = function () {
+            let j = 0;
+            while (j < list.length) {
+                list[j++].className = 'list'
+            }
+            list[i].className = 'list active';
+        }
+    }
+</script>
+{% endblock %}

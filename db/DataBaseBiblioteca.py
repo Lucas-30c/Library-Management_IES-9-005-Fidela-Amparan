@@ -83,12 +83,23 @@ class BooksDataBase:
         self.cursor.execute(q)
         return self.cursor.fetchone()
 
+    # GET LIBRARIAN LOGIN
     def getLibrarian(self, email):
         q = f"SELECT * from bibliotecaria where email = '{email}';"
         self.cursor.execute(q)
         librarian = self.cursor.fetchone()
         if librarian is not None:
             return Bibliotecaria(librarian[0], librarian[1],librarian[2],librarian[3],librarian[4],librarian[5])
+        else:
+            return None
+
+    # GET SOCIO LOGIN
+    def getSocio(self, email):
+        q = f"SELECT * from socio where email = '{email}';"
+        self.cursor.execute(q)
+        socio = self.cursor.fetchone()
+        if socio is not None:
+            return Socio(socio[0], socio[1], socio[2], socio[3], socio[4], socio[5], socio[6], socio[7], socio[8])
         else:
             return None
 
@@ -139,14 +150,13 @@ class BooksDataBase:
         self.cursor.execute(q)
         return self.cursor.fetchone()
     
-    # Cambio de Estado en LIBROS al momento de marcarlo como préstamo
-    def bookActive(self, id):
-        self.cursor.execute(f"UPDATE libro SET estado = 'Prestado' WHERE id = {id}")
+    # Cámbio de Estado en LIBROS al momento de marcarlo como préstamo
+    def bookActive(self, idlibro):
+        self.cursor.execute(f"UPDATE libro SET estado = 'Prestado' WHERE id = {idlibro}")
         self.connection.commit()
 
     def bookDevuelto(self, idlibro):
-        query = f"UPDATE libro SET estado = 'Disponible' WHERE id = {idlibro};"
-        self.cursor.execute(query)
+        self.cursor.execute(f"UPDATE libro SET estado = 'Disponible' WHERE id = {idlibro}")
         self.connection.commit()
 
 
@@ -156,15 +166,9 @@ class BooksDataBase:
         self.cursor.execute("SELECT MAX(id) FROM  libro;")
         bookID = self.cursor.fetchone()
         return bookID[0] + 1
-        #print("testLibros -->", bookID[0] + 1)
 
     def getMemberMaxID(self):
         self.cursor.execute("SELECT MAX(id) FROM  socio;")
         socioID = self.cursor.fetchone()
         return socioID[0] + 1
-        #print("testSocios -->", socioID[0] + 1)
 
-
-# d = BooksDataBase()
-# d.getBookMaxID()
-# d.getMemberMaxID()

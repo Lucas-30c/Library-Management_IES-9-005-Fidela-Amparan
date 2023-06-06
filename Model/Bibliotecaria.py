@@ -9,6 +9,6 @@ class Bibliotecaria(UserMixin):
         self.password = password
         self.celular = celular
         self.rol = rol
-    
+
     def get_id(self):
-        return self.email
+        return str(self.email)

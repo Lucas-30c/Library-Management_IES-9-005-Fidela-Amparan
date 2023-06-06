@@ -20,7 +20,7 @@
                     <i class="uil uil-envelope icon"></i>
                 </div>
                 <div class="input-field">
-                    <input type="password" id="password" name="contraseña" placeholder="Contraseña ?" required>
+                    <input type="password" id="password" name="password" placeholder="Contraseña ?" required>
                     <button type="button" class="btn btn-link password-toggle" style="margin-left: 86%;"><i
                             class="uil uil-eye"></i></button>
                     <i class="uil uil-lock icon"></i>
@@ -39,15 +39,15 @@
             {% if messages %}
                 {% for category, message in messages %}
                 {% if category == 'error' %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 3%;">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 3%; font-size: 93%;">
                         <i class="uil uil-exclamation-circle" style="color: red;"></i> {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 {% endif %}
         
                 {% if category == 'success' %}
-                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 3%;">
-                        <i class="uil uil-check-circle" style="color: green; font-size: 109%;"></i><strong> ¡Éxito!</strong> 
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 3%; font-size: 93%;">
+                        <i class="uil uil-check-circle" style="color: green; font-size: 110%;"></i><strong> ¡Éxito!</strong> 
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>

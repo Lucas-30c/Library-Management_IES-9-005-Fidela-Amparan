@@ -1,15 +1,18 @@
-class User:
-    def __init__(self) -> None:
-        pass
+from flask_login import UserMixin
 
-    def is_authenticated(self):
-        pass
 
-    def is_active(self):
-        pass
-
-    def is_anonymous(self):
-        pass
+class User(UserMixin):
+    def __init__(self, user_id):
+        self.id = user_id
 
     def get_id(self):
-        pass
+        return self.id
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False

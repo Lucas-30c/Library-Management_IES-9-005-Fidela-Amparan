@@ -1,5 +1,7 @@
+from flask_login import UserMixin
 
-class Socio:
+
+class Socio(UserMixin):
     def __init__(self, id=0, dni="", apellido="", nombre="", email="", password="", celular="", direccion="", documentacion="", responsable=""):
         self.id = id
         self.dni = dni
@@ -12,3 +14,5 @@ class Socio:
         self.documentacion = documentacion
         self.responsable = responsable
 
+    def get_id(self):
+        return self.email

@@ -29,8 +29,12 @@ def access_not_authorized():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return db.getLibrarian(user_id)
-
+    librarian = db.getLibrarian(user_id)
+    if librarian:
+        return librarian
+    else:
+        socio = db.getSocio(user_id)
+        return socio
 
 # -----------  HOME PAGE  -----------
 @app.route('/')
@@ -43,6 +47,7 @@ def home():
 
 
 @app.route('/InicioUser')
+@login_required
 def inicioUser():
 
     # year copyright
@@ -70,19 +75,24 @@ def unauthorized_callback():
 def login():
     if request.method == 'POST':
         email = request.form['email']
-        clave = request.form['contraseña']
-        if email and clave:
-            db = BooksDataBase()
-            user = db.getLibrarian(email)
-            if user != None and email == user.email and check_password_hash(user.password, clave):
-                login_user(user)
-                session["user_rol"] = user.rol
-                return redirect(url_for('homeLibrarian'))
-            else:
-                flash(' Email/Contraseña inválida.', 'error')
-                return redirect(url_for('login'))
+        password = request.form['password']
 
-        return redirect(url_for('login'))
+        if email and password:
+            librarian = db.getLibrarian(email)
+            if librarian and check_password_hash(librarian.password, password):
+                login_user(librarian)
+                session["user_rol"] = librarian.rol
+                return redirect(url_for('homeLibrarian'))
+
+            socio = db.getSocio(email)
+            if socio and check_password_hash(socio.password, password):
+                login_user(socio)
+                session["user_rol"] = 'socio'
+                return redirect(url_for('inicioUser'))
+
+            flash('Email/Contraseña inválida.', 'error')
+            return redirect(url_for('login'))
+
     return render_template('login.html')
 
 
@@ -486,8 +496,8 @@ def formDevolution(prestamo_id, libro_id):
     now = datetime.now()
     dateNow = now
 
-    bibliotecaria = db.getLibrarian(session['_user_id'])
-    book = db.getBook(libro_id)
+    # bibliotecaria = db.getLibrarian(session['_user_id'])
+    # book = db.getBook(libro_id)
 
     devolucion = Devolucion(id, fechaentrega=dateNow, idprestamo=prestamo_id)
 

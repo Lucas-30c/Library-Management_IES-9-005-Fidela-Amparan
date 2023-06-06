@@ -1,8 +1,6 @@
 {% extends "layoutForm.html" %}
 
-
 {% block title %} Formulario de registro {% endblock %}
-
 
 {% block content %}
 
@@ -112,6 +110,7 @@
         </div>
     </div>
 </div>
+
 <!-- Script -->
 <script type="text/javascript">
     var passwordToggle = document.querySelector('.password-toggle');
@@ -137,7 +136,7 @@
             btn.disabled = true;
         } else if (form.email.value == "") {
             btn.disabled = true;
-        } else if (form.contraseña.value == "") {
+        } else if (form.password.value == "") {
             btn.disabled = true;
         } else if (form.celular.value == "") {
             btn.disabled = true;
@@ -145,14 +144,14 @@
             btn.disabled = true;
         } else if (btnModalClicked == false) {
             btn.disabled = true;
-        } else {
-            btn.disabled = false;
         }
     }
+
+    form.addEventListener("input", habilitar);
     btnModal.addEventListener("click", function () {
         btnModalClicked = true;
         habilitar();
     });
-    form.addEventListener("keyup", habilitar)
 </script>
+
 {% endblock %}

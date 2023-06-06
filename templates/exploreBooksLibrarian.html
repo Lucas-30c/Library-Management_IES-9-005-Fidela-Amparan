@@ -55,32 +55,6 @@
 
 <div class="container" style="margin-left: -4% ; margin-top:2%; display: inline;"></div>
 <div class="row"></div>
-<!-- {% for book in books %}
-<div class="card h-10" style="width: 16rem; display: inline-block;">
-    <img src="/static/images/book-3.png" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">{{book.2}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{book.3}}</h6>
-        <p class="card-text">{{book.1}}</p>
-        <hr class="my-3 border-5" style="background-color: rgb(0, 0, 0);">
-        {% if book.11 == "Disponible" %}
-        <p class="card-text" style="color: green;">{{book.11}}</p>
-        <div style="margin-bottom: 1.7rem;">
-            <a href="/formPrestamo/{{book.0}}" class="btn6">Prestamo</a>
-        </div>
-        {% elif book.11 == "Prestado" %}
-        <p class="card-text" style="color: rgb(255, 123, 0);">{{book.11}}</p>
-        <div style="margin-bottom: 1.7rem;">
-            <span class="btn6 btn-disabled">Prestamo</span>
-        </div>
-        {% endif %}
-        <div style="margin-bottom: .6rem;">
-            <a href="/ver_libro/{{book.0}}" class="btn6" style="padding: .6rem 2.2rem;">Ver Libro</a>
-        </div>
-    </div>
-</div>
-{% endfor %} -->
-
 <div class="card-container">
     {% for book in books %}
     <div class="card" style="width: 16rem; display: inline-block;">
@@ -211,8 +185,8 @@
 {% for category, message in messages %}
 {% if category == 'exitoFormPrestamo' %}
 <div class="alert alert-success alert-dismissible fade show" role="alert"
-    style="width: 27.5%; padding: 15px;font-size: medium; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 128, 0, 0.76);">
-    <i class="uil uil-check-circle" style="color: green; font-size: 109%;"></i><strong> ¡Éxito!</strong> {{ message
+    style="width: 27.5%; padding: 15px; font-size: 93%; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 128, 0, 0.76);">
+    <i class="uil uil-check-circle" style="color: green; font-size: 110%;"></i><strong> ¡Éxito!</strong> {{ message
     }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="color: red;"></button>
 </div>
@@ -220,8 +194,8 @@
 
 {% if category == 'bookEdit' %}
 <div class="alert alert-primary alert-dismissible fade show" role="alert" style="width: 27.5%; padding: 15px; 
-    font-size: medium; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 0, 255, 0.76);">
-    <i class="uil uil-check-circle" style="color: blue; font-size: 109%;"></i><strong> ¡Éxito!</strong> {{ message
+    font-size: 93%; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 0, 255, 0.76);">
+    <i class="uil uil-check-circle" style="color: blue; font-size: 110%;"></i><strong> ¡Éxito!</strong> {{ message
     }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>

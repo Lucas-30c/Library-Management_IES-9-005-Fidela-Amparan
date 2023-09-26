@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="container">
-    <a href="/">
+    <a href="/InicioLibrarian">
         <button type="button" class="btn2 btn-primary">
             <i class="uil uil-estate"></i> Inicio</button>
     </a>
@@ -15,28 +15,28 @@
             <span class="title">Formulario de registro</span>
 
 
-            <form action="/registerLibrarian" id="form" method="POST">
+            <form action="/registerLibrarianBIBLIOTECA" id="form" method="POST">
                 <div class="input-field">
-                    <input name="email" type="email" placeholder="Ingresa tú email" id="email" required>
+                    <input name="email" type="email" placeholder="Email ?" id="email" required>
                     <i class="uil uil-envelope icon"></i>
                 </div>
 
                 <div class="input-field">
-                    <input name="Nombre" type="text" placeholder="Ingresa tú nombre" id="nombre" required>
+                    <input name="Nombre" type="text" placeholder="Nombre ?" id="nombre" required>
                     <i class="uil uil-user"></i>
                 </div>
                 <div class="input-field">
-                    <input name="Apellido" type="text" placeholder="Ingresa tú apellido" id="apellido" required>
+                    <input name="Apellido" type="text" placeholder="Apellido ?" id="apellido" required>
                     <i class="uil uil-user"></i>
                 </div>
 
                 <div class="input-field">
-                    <input name="password" type="password" placeholder="Ingresa tú contraseña" id="password" required>
+                    <input name="password" type="password" placeholder="Contraseña ?" id="password" required>
                     <i class="uil uil-lock icon"></i>
                 </div>
 
                 <div class="input-field">
-                    <input name="Celular" type="tel" placeholder="Ingresa tú celular" id="celular" required>
+                    <input name="Celular" type="tel" placeholder="Celular ?" id="celular" required>
                     <i class="uil uil-mobile-android"></i>
                 </div>
 
@@ -45,6 +45,7 @@
                         <option disabled selected value="" style="color: gray;">Rol ?</option>
                         <option name="Rol" value="LIB_AUX">LIB_AUX</option>
                         <option name="Rol" value="LIB">LIB</option>
+                        <option name="Rol" value="LIB_MNAG">LIB_MNAG</option>
                         <option name="Rol" value="SU">SU</option>
                     </select>
                 </div>

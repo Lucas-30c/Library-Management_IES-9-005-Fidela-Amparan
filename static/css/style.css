@@ -856,57 +856,7 @@ a:visited {
     text-shadow: 0 0 5px #00000094;
 }
 
-@media (max-width: 765px) {
 
-    .main .row2 .content h3 {
-        font-size: 1.2rem;
-        text-align: left;
-        margin-left: 13%;
-    }
-
-    .main .row2 .content h2 {
-        font-size: 2.3rem;
-        text-align: left;
-        margin-left: 11%;
-    }
-
-    .main .btn4 {
-        font-size: 0.8rem !important;
-        text-align: left;
-        margin-left: -12%;
-    }
-
-
-    .footer .title1,
-    .footer .title2,
-    .footer .title3 {
-        font-size: 0.85rem !important;
-        text-align: left;
-    }
-
-    .main .row3 {
-        background: url(/static/images/explore9.jpg) no-repeat;
-        background-size: cover;
-        background-position: center center;
-        height: 305px;
-        text-align: center;
-        width: auto;
-        max-height: 34vh;
-    }
-}
-
-@media (max-width: 1400px) {
-
-    .main .row3 {
-        background: url(/static/images/explore12e.jpg) no-repeat;
-        background-size: cover;
-        background-position: center center;
-        height: 505px;
-        max-height: 105vh;
-        text-align: center;
-        margin-top: -0.77%;
-    }
-}
 
 
 .main .btn4 {
@@ -975,12 +925,84 @@ a:visited {
 
 
 
+@media (max-width: 765px) {
+
+    .main .row2 .content h3 {
+        padding-top: 8.7%;
+        margin-bottom: -6%;
+        font-size: 1.18rem;
+        font-weight: 450;
+        text-align: left;
+        margin-left: 5%;
+        width: max-content;
+        word-spacing: 0px;
+    }
+
+    .main .row2 .content h2 {
+        font-size: 2.25rem;
+        font-weight: 650;
+        text-align: left;
+        margin-left: -1%;
+        width: max-content;
+        word-spacing: 0px;
+    }
+
+    .main .btn4 {
+        font-size: 0.61rem !important;
+        left: 40%;
+        width: 30%;
+        padding: 4px 4px 4px 4px;
+        border-radius: .4rem;
+        border: .5px solid #eee7cee5;
+        margin-top: 15px;
+        color: #ffc935
+    }
+
+    .main .btn4:before {
+        border-radius: .4rem;
+    }
+
+
+    .footer .title1,
+    .footer .title2,
+    .footer .title3 {
+        font-size: 0.85rem !important;
+        text-align: left;
+    }
+
+    .main .row3 {
+        background: url(/static/images/explore9.jpg) no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 305px;
+        text-align: center;
+        width: auto;
+        max-height: 34vh;
+    }
+
+
+    /*------   HOME PAGE   ------*/
+    .main .row2 {
+        height: auto;
+        width: auto;
+    }
 
 
 
+}
 
+@media (max-width: 1400px) {
 
-
+    .main .row3 {
+        background: url(/static/images/explore12e.jpg) no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 505px;
+        max-height: 105vh;
+        text-align: center;
+        margin-top: -0.77%;
+    }
+}
 
 
 
@@ -1065,13 +1087,58 @@ a:visited {
 
 
 
-
-
 .main .puntoDigital {
     margin-top: -5%;
     align-items: center;
     margin-left: 2%;
+    position: relative;
 }
+
+.img-puntoDigital {
+    max-width: 100%;
+    border-radius: 15px;
+    height: auto;
+}
+
+.btn-visitar {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007bff;
+    color: white;
+    padding: 5px 27px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: 450;
+    font-size: medium;
+}
+
+.btn-visitar:hover {
+    background-color: rgb(222, 230, 235);
+    color: #007bff;
+}
+
+@media (min-width: 768px) {
+    .img-puntoDigital {
+        max-width: 16%;
+    }
+}
+
+@media (max-width: 767px) {
+    .img-puntoDigital {
+        max-width: 40%;
+    }
+    .btn-visitar {
+        padding: 3px 8px;
+        font-size: 65%;
+        border-radius: 6px;
+    }
+    .main .puntoDigital {
+        margin-bottom: 15%;
+    }
+}
+
 
 
 
@@ -1247,6 +1314,16 @@ a:visited {
     text-shadow: 0 0 10px rgb(0, 0, 0, 0.795);
 }
 
+.main .newsletter h4,
+.main .newsletter h5 {
+    font-size: 170%;
+    color: #FFC728;
+    padding-top: 2.5rem;
+    padding-bottom: 1rem;
+    padding-left: 40%;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.61);
+}
+
 
 
 .btn1 {
@@ -1285,7 +1362,6 @@ a:visited {
 .linkEmail:hover {
     color: #1348da;
 }
-
 
 
 /* -----------  style page GESTIÓN DE LIBROS -----------*/
@@ -1388,6 +1464,13 @@ a:visited {
     color: #FFC728;
     background-color: rgba(0, 0, 0, 0.884);
     font-weight: 450;
+}
+
+.main .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 
@@ -1735,6 +1818,90 @@ a:visited {
         font-size: 1.8rem;
         font-weight: 550;
     }
+
+     /*--- Página INICIO ---*/
+     .main .swiper {
+        top: 4%;
+        margin-bottom: 45%;
+        width: 350px;
+        padding-top: 1px;
+        padding-bottom: 70px;
+        background: rgba(255, 0, 0, 0);
+        border-radius: 10px;
+    }
+
+    .main .newsletter h2 {
+        font-size: 68%;
+        padding-left: 53%;
+        margin-bottom: -0.1%;
+    }
+
+    .main .newsletter h3 {
+        margin-top: 5%;
+        margin-bottom: -2%;
+        font-size: 68%;
+        padding-left: 44%;
+    }
+
+    .main .newsletter h4 {
+        font-size: 100%;
+        padding-left: 35%;
+        padding-top: 1rem;
+    }
+
+    .main .newsletter h5 {
+        font-size: 100%;
+        padding-left: 35%;
+        margin-top: -12%;
+        margin-bottom: -4%;
+    }
+
+    .main .btn1 {
+        margin-left: 52%;
+        font-size: 53%;
+        padding: .4rem 1.7rem;
+        border-radius: .5rem;
+    }
+
+    /*--- INICIO  wifi-libros-juegos ---*/
+    .main .newsletter {
+        background-attachment: initial;
+        min-height: 11%;
+        margin-top: -16%;
+    }
+
+    .main .heading span {
+        font-size: 57%;
+        margin-left: -0.5%;
+        padding: .5rem 2.3rem;
+    }
+
+    .main .icons-container {
+        padding: 3% 7% 3% 0%;
+        margin-bottom: 17%;
+    }
+
+    .main .icons-container .icons i {
+        font-size: 2.5rem;
+    }
+
+    .main .icons-container .icons h3 {
+        text-align: center;
+        font-size: 85%;
+    }
+
+    .main .icons-container .icons p {
+        text-align: center;
+        font-size: 0.85rem;
+    }
+
+
+    /*--- INICIO punto-digital ---*/
+    .main .puntoDigital {
+        margin-top: -5%;
+        align-items: center;
+        margin-left: 2%;
+    }
 }
 
 .buttCancel {
@@ -1745,4 +1912,15 @@ a:visited {
 .buttCancel:hover {
     border-color: #232d35;
     background-color: #232d35;
+}
+
+
+/* CONFIGURATION INPUT jQuery DataTables */
+div.dataTables_wrapper input[type="search"] {
+    width: 232px !important;  /* ANCHO */
+    height: 35px; /* ALTO */
+}
+
+.dataTables_filter label {
+    font-size: 15px; /* LABEL Buscar: in DataTables */
 }

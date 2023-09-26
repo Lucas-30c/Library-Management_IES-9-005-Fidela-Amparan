@@ -72,6 +72,18 @@
                     <span class="title">Devoluciones</span>
                 </a>
             </li>
+            {% if user_rol in ["SU", "LIB_MNGA"] %}
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-user-minus"></i>
+                    </span>
+                    <span class="title">Bibliotecarias</span>
+                </a>
+            </li>
+            {% endif %}
         </ul>
     </div>
     <div class="toggle">
@@ -141,7 +153,7 @@
                         </p>
                         <a href="mailto:bibliotecae.dussel2022@gmail.com" class="linkEmail"
                             style="font-size: 90%; text-align: center; font-weight: 400;">bibliotecae.dussel2022@gmail.com</a><br>
-                        
+
                         <ul class="salasAboutOn">
                             <li>Sala de entretenimientos</li>
                             <li style="color: #D90E40;">Sala de juegos recreativos</li>
@@ -166,9 +178,8 @@
                         <img src="/static/images/EnriqueDussel.jpg" class="rounded float-end imageDussel" alt="auto">
                         <p class="card-text" style="text-align:center; margin-top: 7%;">"No es nada
                             descubrir algo
-                            nuevo, hay que descubrir para qué se descubre”.</p>
-                        <p class="card-text"
-                            style="text-align: center; margin-top: 2%; margin-bottom: 4%;"><a
+                            nuevo, hay que descubrir para qué se descubre”</p>
+                        <p class="card-text" style="text-align: center; margin-top: 2%; margin-bottom: 4%;"><a
                                 href="https://enriquedussel.com/biografia/" class="linkEmail"
                                 style="font-size: 89%; color: #1c84da;">Visita su Biografía</a></p>
                     </div>

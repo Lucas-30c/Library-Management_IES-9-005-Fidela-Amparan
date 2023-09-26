@@ -1,9 +1,9 @@
-# Roles serán
 from flask import redirect, url_for
 
-LEVEL_2 = ["SU"]
-LEVEL_1 = ["SU", "LIB"]
-LEVEL_0 = ["SU", "LIB", "LIB_AUX"]
+LEVEL_3 = ["SU"]
+LEVEL_2 = ["SU", "LIB_MNAG"]
+LEVEL_1 = ["SU", "LIB_MNAG", "LIB"]
+LEVEL_0 = ["SU", "LIB_MNAG", "LIB", "LIB_AUX"]
 
 
 def authorization_required(level, level_required, error):
@@ -18,8 +18,3 @@ def authorization_required(level, level_required, error):
 
     return wrapper_1
 
-
-
-# @authorization_required(level="LIB", level_required=LEVEL_2, error_url="Errorazo!!")
-# def testing_decorador():
-#     print("Hola Mundo!!")

@@ -49,11 +49,11 @@
 </section>
 
 
-
 <div class="puntoDigital">
-    <img src="/static/images/puntoDigital.png" alt="" style="border-radius: 15px;">
+    <img src="/static/images/logofacebook.png" alt="" class="img-puntoDigital">
+    <a href="https://www.facebook.com/tu_pagina" class="btn-visitar">¡Visita nuestra página!</a>
 </div>
-
+  
 
 
 
@@ -194,6 +194,18 @@
                     <span class="title">Devoluciones</span>
                 </a>
             </li>
+            {% if user_rol in ["SU", "LIB_MNGA"] %}
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-user-minus"></i>
+                    </span>
+                    <span class="title">Bibliotecarias</span>
+                </a>
+            </li>
+            {% endif %}
         </ul>
     </div>
     <div class="toggle">

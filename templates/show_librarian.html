@@ -1,7 +1,7 @@
 {% extends "layoutLibrarian.html" %}
 
 
-{% block title %} Listado de Devoluciones {% endblock %}
+{% block title %} Listado de Bibliotecarias {% endblock %}
 
 
 {% block content %}
@@ -63,7 +63,7 @@
                     <span class="title">Prestamos</span>
                 </a>
             </li>
-            <li class="list active">
+            <li class="list">
                 <b></b>
                 <b></b>
                 <a href="/showDevolution">
@@ -74,7 +74,7 @@
                 </a>
             </li>
             {% if user_rol in ["SU", "LIB_MNGA"] %}
-            <li class="list">
+            <li class="list active">
                 <b></b>
                 <b></b>
                 <a href="/showLibrarian">
@@ -94,16 +94,55 @@
 </nav>
 
 
-<!-- Botón manual de uso -->
-<div class="d-grid gap-1 d-md-flex justify-content-md-end" style="position: relative;">
-    <a href="https://sites.google.com/view/manualbibliotecaedussel/devoluciones"><button type="button" class="btn btn-outline-info boton" id="boton-nuevo" title="Guía"
-        style="padding: 0px 8px 0px 8px; border-radius: .25rem;"><i class="uil uil-question-circle"
-            style="color: #ffffff; font-size: 125%"></i></button></a>
-</div>
+<style>
+    /* .custom-alert {
+        font-size: px;
+    } */
+</style>
+
+
 
 <!-- Contenido -->
 <div style="width: 91.5%; margin-left: 8.3%; color: #EEE7CE; margin-bottom: 1%;">
-    <h6 class="titlePage">Gestión de Devoluciones</h6>
+    <h6 class="titlePage">Gestión de Bibliotecarias</h6>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'succesAccount' %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert"
+        style="width: 29%; font-size: 79%; margin-top: -2%;">
+        <i class="uil uil-check-circle" style="color: green; font-size: 110%;"></i><strong> ¡Éxito!</strong> {{ message
+        }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            style="margin-top: -0.9%;"></button>
+    </div>
+    {% endif %}
+
+    {% if category == 'suspendAccount' %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert"
+        style="width: 29%; font-size: 79%; margin-top: -2%;">
+        <i class="uil uil-check-circle" style="color: orangered; font-size: 110%;"></i><strong> ¡Éxito!</strong>
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            style="margin-top: -0.9%;"></button>
+    </div>
+    {% endif %}
+
+    {% if category == 'librarianEdit' %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert"
+        style="width: 29%; font-size: 79%; margin-top: -2%;">
+        <i class="uil uil-check-circle" style="color: blue; font-size: 110%;"></i><strong> ¡Éxito!</strong>
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            style="margin-top: -0.9%;"></button>
+    </div>
+    {% endif %}
+
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 
 
     <table id="" class="display3 table table-striped" cellspacing="1" cellpadding="1" width="100%"
@@ -111,26 +150,55 @@
         <thead style="border-radius: 30%;">
             <tr style="color: #FFC728; background-color: #315c53; font-size: 72%;">
                 <th style="width: 0.1%; text-align: center; font-weight: 450;">#</th>
-                <th style="width: 17%; text-align: center; font-weight: 450;">Socio / N°</th>
-                <th style="width: 7%; text-align: center; font-weight: 450;">Bibliotecaria</th>
-                <th style="width: 18%; text-align: center; font-weight: 450;">Libro / N° inventario</th>
-                <th style="width: 4.5%; text-align: center; font-size: 85%; font-weight: 550;">Fecha de Inicio</th>
-                <th style="width: 4.7%; text-align: center; font-size: 85%; font-weight: 550;">Fecha de Devolución</th>
-                <th style="width: 3%; text-align: center; font-weight: 450;">Estado</th>
+                <th style="width: 8%; text-align: center; font-weight: 450;">Nombre</th>
+                <th style="width: 8%; text-align: center; font-weight: 450;">Appellido</th>
+                <th style="width: 10%; text-align: center; font-weight: 450;">Email</th>
+                <th style="width: 2%; text-align: center; font-weight: 450;">Celular</th>
+                <th style="width: 5%; text-align: center; font-weight: 450;">Rol</th>
+                <th style="width: 4%; text-align: center; font-weight: 450;">Cuenta</th>
+                <th style="width: 0.1%; text-align: center; font-weight: 450;">Acciones</th>
             </tr>
         </thead>
         <tbody style="font-size: 67.5%; font-weight: 590;">
-            {% for devolution in devolutions %}
+            {% for librarian in librarians %}
             <tr style="border-color: rgb(155, 155, 155);">
-                <td data-label="#">{{devolution.0}}</td>
-                <td data-label="Socio" style="text-align: left;">{{devolution.1}} {{devolution.2}} / {{devolution.3}}
+                <td data-label="#">{{loop.index}}</td>
+                <td data-label="Nombre" style="text-align: left;">{{librarian.1}}</td>
+                <td data-label="Apellido" style="text-align: left;">{{librarian.2}}</td>
+                <td data-label="Email" style="text-align: left;">{{librarian.0}}</td>
+                <td data-label="Celular" style="text-align: left;">{{librarian.4}}</td>
+                <td data-label="Rol" style="text-align: left;">
+                    {% if librarian.5 == "LIB_AUX" %}
+                    <p class="card-text" style="color: rgb(0, 68, 124); margin: 0;">BIBLIOTECARIA AUXILIAR</p>
+                    {% elif librarian.5 == "LIB" %}
+                    <p class="card-text" style="color: rgb(0, 0, 0); margin: 0;">BIBLIOTECARIA</p>
+                    {% endif %}
                 </td>
-                <td data-label="Bibliotecaria" style="text-align: left;">{{devolution.4}} {{devolution.5}}</td>
-                <td data-label="Libro" style="text-align: left;">{{devolution.6}} / {{devolution.7}}</td>
-                <td data-label="Fecha de Inicio" style="text-align: left;">{{devolution.8.strftime('%d/%m/%Y')}}</td>
-                <td data-label="Fecha de Devolución" style="text-align: left;">{{devolution.9.strftime('%d/%m/%Y')}}
+                <td data-label="Cuenta" style="text-align: left;">
+                    {% if librarian.6 == "ACTIVA" %}
+                    <p class="card-text" style="color: green;">{{librarian.6}}</p>
+                    {% elif librarian.6 == "SUSPENDIDA" %}
+                    <p class="card-text" style="color: orangered;">{{librarian.6}}</p>
+                    {% endif %}
                 </td>
-                <td style="text-align: left; color: green;" data-label="Estado">Entregado</td>
+                <td data-label="Acciones" style="text-align: left;">
+                    <a href="/updateLibrarian/{{librarian.0}}" style="display: inline-block;">
+                        <button type="button" class="btnMember btn-info" style="width: auto;"
+                            title="Editar Bibliotecaria"><i class="uil uil-pen"></i></button>
+                    </a>
+
+                    {% if librarian.6 == "ACTIVA" %}
+                    <form action="/suspendLibrarian/{{librarian.0}}" method="post" style="display: inline-block;">
+                        <button type="submit" class="btnMemberDelete" style="width: auto;"
+                            title="Suspender Cuenta {{librarian.0}}"><i class="uil uil-trash"></i></button>
+                    </form>
+                    {% elif librarian.6 == "SUSPENDIDA" %}
+                    <form action="/recoverLibrarian/{{librarian.0}}" method="post" style="display: inline-block;">
+                        <button type="submit" class="btnMemberDelete" style="width: auto; background-color: #2C3B49;"
+                            title="Recuperar Cuenta {{librarian.0}}"><i class="uil uil-sync"></i></button>
+                    </form>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -163,7 +231,7 @@
     #boton-nuevo:hover {
         border-color: #058ea3;
         background-color: #058ea3;
-    }
+    } 
 </style>
 
 
@@ -177,10 +245,11 @@
             "dom": 'B<"float-right"f>t<"float-left"l><"float-right"p><"clearfix">',
             "language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
-                "searchPlaceholder": "Buscar una devolución"
+                "searchPlaceholder": "Buscar una bibliotecaria"
             },
             autoWidth: false,
         });
+
 
         $("table.display3 thead").on("keyup", "input", function () {
             table.column($(this).parent().index())

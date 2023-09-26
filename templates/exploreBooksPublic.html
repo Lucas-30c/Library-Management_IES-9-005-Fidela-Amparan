@@ -28,19 +28,25 @@
 
 <div class="container" style="margin-left: -4% ; margin-top:2.8%; display: inline;"></div>
 <div class="row"></div>
-{% for book in books %}
-<div class="card" style="width: 16rem; display: inline-block;">
-    <img src="/static/images/book-3.png" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">{{book.2}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{book.3}}</h6>
-        <p class="card-text">{{book.1}}</p>
-        <button type="button" class="btn6" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Lo quiero!</button>
+<div class="card-container">
+    {% for book in books %}
+    <div class="card" style="width: 16rem; display: inline-block;">
+        <img src="/static/images/book-3.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{book.2}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{book.3}}</h6>
+            <p class="card-text">{{book.1}}</p>
+            <button type="button" class="btn6" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Lo
+                quiero!</button>
+        </div>
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
+
+
 </div>
 </div>
+
 
 
 <!-- Modal -->

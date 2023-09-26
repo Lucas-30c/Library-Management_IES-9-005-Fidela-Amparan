@@ -1,0 +1,52 @@
+{% extends "layoutForm.html" %}
+
+{% block title %} Editar Bibliotecaria {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <a href="/showLibrarian">
+        <button type="button" class="btn2 btn-primary"><i class="uil uil-arrow-circle-left"></i> Volver</button>
+    </a>
+    <div class="forms" style="height: max-content">
+        <div class="form login">
+            <span class="title">Actualizar Bibliotecaria</span>
+
+            <form action="/updateLibrarian/{{librarian.0}}" method="POST">
+
+                <div class="input-field">
+                    <input name="nombre" type="text" placeholder="Nombre ?" value="{{librarian.1}}" required>
+                    <i class="uil uil-user"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="apellido" type="text" placeholder="Apellido ?" value="{{librarian.2}}" required>
+                    <i class="uil uil-user"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="email" type="email" placeholder="Email ?" value="{{librarian.0}}" required>
+                    <i class="uil uil-envelope icon"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="celular" type="tel" placeholder="Celular ?" value="{{librarian.4}}" required>
+                    <i class="uil uil-mobile-android"></i>
+                </div>
+
+                <div class="input-field">
+                    <input name="cuenta" type="text" placeholder="cuenta ?" value="{{librarian.6}}" disabled>
+                    <input type="hidden" name="cuenta" value="{{librarian.6}}">
+                    <i class="uil uil-user"></i>
+                </div>
+
+
+                <div class="input-field button">
+                    <input type="submit" value="Actualizar Datos">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

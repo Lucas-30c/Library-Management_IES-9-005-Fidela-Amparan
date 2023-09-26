@@ -171,6 +171,18 @@
                     <span class="title">Devoluciones</span>
                 </a>
             </li>
+            {% if user_rol in ["SU", "LIB_MNGA"] %}
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-user-minus"></i>
+                    </span>
+                    <span class="title">Bibliotecarias</span>
+                </a>
+            </li>
+            {% endif %}
         </ul>
     </div>
     <div class="toggle">
@@ -185,7 +197,7 @@
 {% for category, message in messages %}
 {% if category == 'exitoFormPrestamo' %}
 <div class="alert alert-success alert-dismissible fade show" role="alert"
-    style="width: 27.5%; padding: 15px; font-size: 93%; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 128, 0, 0.76);">
+    style="width: 27.5%; padding: 15px; font-size: 79%; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 128, 0, 0.76);">
     <i class="uil uil-check-circle" style="color: green; font-size: 110%;"></i><strong> ¡Éxito!</strong> {{ message
     }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="color: red;"></button>
@@ -194,7 +206,7 @@
 
 {% if category == 'bookEdit' %}
 <div class="alert alert-primary alert-dismissible fade show" role="alert" style="width: 27.5%; padding: 15px; 
-    font-size: 93%; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 0, 255, 0.76);">
+    font-size: 79%; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 0, 255, 0.76);">
     <i class="uil uil-check-circle" style="color: blue; font-size: 110%;"></i><strong> ¡Éxito!</strong> {{ message
     }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -218,14 +230,6 @@
     #boton-nuevo:hover {
         border-color: #058ea3;
         background-color: #058ea3;
-    }
-
-
-    .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: flex-start;
     }
 </style>
 

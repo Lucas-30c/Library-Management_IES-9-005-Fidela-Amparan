@@ -1,31 +1,46 @@
 from flask import Flask, request, redirect, url_for, render_template, flash, session
 from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_mail import Mail, Message
 from Model.Libro import Libro
 from Model.PrestamoDataView import PrestamoDataViewList
 from Model.Socio import Socio
 from Model.Prestamo import Prestamo
 from Model.Bibliotecaria import Bibliotecaria
 from Model.Devolucion import Devolucion
+from Utils.codeGenerator import generate_confirmation_code
 from Utils.str_functions import build_list
 from db.DataBaseBiblioteca import BooksDataBase
 from datetime import timedelta, datetime
+import pytz
 from werkzeug.security import generate_password_hash, check_password_hash
 from Utils.filterBook import FilterBook
-from Utils.authorization import authorization_required, LEVEL_2, LEVEL_1, LEVEL_0
+from Utils.authorization import authorization_required, LEVEL_3, LEVEL_2, LEVEL_1, LEVEL_0
 
-login_manager = LoginManager()
 
 app = Flask(__name__)
-app.secret_key = 'mysecretkey'
+app.secret_key = 'key_ñ_ProjecT_ñ_BiBLi0Te_CA'
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'bibliotecadusselnotificaciones@gmail.com'
+app.config['MAIL_PASSWORD'] = 'lscb tylx kztz omck'
+app.config['MAIL_DEFAULT_SENDER'] = 'bibliotecadusselnotificaciones@gmail.com'
+mail = Mail(app)
+
 db = BooksDataBase()
+login_manager = LoginManager()
 login_manager.init_app(app)
+
 
 @app.route('/not_authorized')
 def access_not_authorized():
     usuario = session['_user_id']
     logout_user()
-    flash(' Sesión cerrada.', 'error')
+    session.clear()
+    flash(' Sesión cerrada.', 'warning')
     return render_template("not_authorized.html", user_id=usuario)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -37,9 +52,11 @@ def load_user(user_id):
         return socio
 
 # -----------  HOME PAGE  -----------
+
+
 @app.route('/')
 def home():
-    
+
     # year copyright
     now = datetime.now()
     yearNow = now.strftime('%Y')
@@ -56,14 +73,14 @@ def inicioUser():
     return render_template("homeUser.html", yearNow=yearNow)
 
 
-@app.route('/InicioLibrarian')
+@app.route('/InicioLibrarian', endpoint='homeLibrarian')
 @login_required
 def homeLibrarian():
 
     # year copyright
     now = datetime.now()
     yearNow = now.strftime('%Y')
-    return render_template("homeLibrarian.html", yearNow=yearNow)
+    return render_template("homeLibrarian.html", yearNow=yearNow, user_rol=session['user_rol'])
 
 
 @login_manager.unauthorized_handler
@@ -76,13 +93,18 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+        session.clear()
 
         if email and password:
             librarian = db.getLibrarian(email)
             if librarian and check_password_hash(librarian.password, password):
-                login_user(librarian)
-                session["user_rol"] = librarian.rol
-                return redirect(url_for('homeLibrarian'))
+                if librarian.cuenta == "ACTIVA":
+                    login_user(librarian)
+                    session["user_rol"] = librarian.rol
+                    return redirect(url_for('homeLibrarian'))
+                else:
+                    flash(' Cuenta suspendida !', 'error')
+                    return redirect(url_for('login'))
 
             socio = db.getSocio(email)
             if socio and check_password_hash(socio.password, password):
@@ -96,13 +118,178 @@ def login():
     return render_template('login.html')
 
 
-# -----------  CERRAR SESIÓN  -----------
+# -----------  LOG OUT  -----------
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
-    flash(' Sesión cerrada.', 'error')
+    session.clear()
+    flash(' Sesión cerrada.', 'warning')
     return redirect(url_for('login'))
+
+
+# -----------  FORGOT PASSWORD  -----------
+@app.route('/forgotPassword', methods=['GET', 'POST'])
+def forgotPassword():
+    if request.method == 'POST':
+        email = request.form['email']
+
+        librarian = db.getLibrarian(email)
+        socio = db.getSocio(email)
+
+        if librarian or socio:
+            confirmation_code = generate_confirmation_code()
+
+            session['reset_email'] = email
+            session['confirmation_code'] = confirmation_code
+            session['timestamp'] = datetime.now(pytz.UTC)
+
+            msg = Message('Confirmación de Restablecimiento de Contraseña',
+                          sender='bibliotecadusselnotificaciones@gmail.com', recipients=[email])
+            msg.body = f'Tu código de confirmación es: {confirmation_code}'
+            mail.send(msg)
+
+            print("Session Data (forgotPassword):")
+            print("reset_email:", session.get('reset_email'))
+            print("confirmation_code:", session.get('confirmation_code'))
+            print("timestamp:", session.get('timestamp'))
+
+            return redirect(url_for('confirmationCode'))
+
+        else:
+            flash('El correo ingresado no existe en nuestros registros.', 'error')
+            return redirect(url_for('forgotPassword'))
+
+    return render_template('forgotPassword.html')
+
+
+
+# -----------  CONFIRMATION CODE  -----------
+@app.route('/confirmationCode', methods=['GET', 'POST'])
+def confirmationCode():
+
+    
+    stored_confirmation_code = session.get('confirmation_code')
+    timestamp = session.get('timestamp')
+    print("Session Data (confirmationCode):")
+    print("confirmation_code:", stored_confirmation_code)
+    print("timestamp:", timestamp)
+    
+    if stored_confirmation_code is None:
+        session.clear()
+        flash('Acceso no autorizado.', 'error')
+        return redirect(url_for('login'))
+
+
+    if request.method == 'POST':
+        code_part1 = request.form['code_part1']
+        code_part2 = request.form['code_part2']
+        code_part3 = request.form['code_part3']
+        code_part4 = request.form['code_part4']
+        code_part5 = request.form['code_part5']
+        user_confirmation_code = code_part1 + code_part2 + code_part3 + code_part4 + code_part5
+
+        if 'failed_attempts' not in session:
+            session['failed_attempts'] = 0
+
+        if session['failed_attempts'] >= 3:
+            session.clear()
+            flash('Acceso no autorizado.', 'error')
+            return redirect(url_for('login'))
+
+    
+        current_time = datetime.now(pytz.UTC)
+        time_difference = current_time - timestamp
+
+        if time_difference.total_seconds() > 900:
+            session.clear()
+            flash('Código de confirmación caducado.', 'error')
+            return redirect(url_for('login'))
+        elif user_confirmation_code == stored_confirmation_code:
+            session['reset_password'] = True
+            session['failed_attempts'] = 0
+            return redirect(url_for('setNewPassword'))
+        else:
+            session['failed_attempts'] += 1
+            flash('Código de confirmación incorrecto. Intenta nuevamente!', 'error')
+    return render_template('confirmationCode.html')
+
+
+
+
+# -----------  SET NEW PASSWORD  -----------
+@app.route('/setNewPassword', methods=['GET', 'POST'])
+def setNewPassword():
+    stored_confirmation_code = session.get('confirmation_code')
+    stored_reset_password = session.get('reset_password')
+    stored_reset_email = session.get('reset_email')
+
+
+    print("Session Data (setNewPassword):")
+    print("reset_password:", stored_reset_password)
+    print("reset_email:", stored_reset_email)
+
+    if stored_confirmation_code is None or stored_reset_password is None or stored_reset_password is False:
+        session.clear()
+        flash('Acceso no autorizado.', 'error')
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        new_password = request.form['new_password']
+        new_password = generate_password_hash(new_password)
+
+        librarian = db.getLibrarian(stored_reset_email)
+        member = db.getSocio(stored_reset_email)
+       
+        if librarian:
+            librarianAccount = db.getLibrarian(stored_reset_email)
+            if librarianAccount:
+                email = librarianAccount.email
+                nombre = librarianAccount.nombre
+                apellido = librarianAccount.apellido
+                celular = librarianAccount.celular
+                rol = librarianAccount.rol
+                cuenta = librarianAccount.cuenta
+                
+                newPasswordLibrarian = Bibliotecaria(email, nombre, apellido, new_password, celular, rol, cuenta)
+                db.updateLibrarian(newPasswordLibrarian)
+
+        elif member:
+            memberAccount = db.getSocio(stored_reset_email)
+            if memberAccount:
+                id = memberAccount.id
+                dni = memberAccount.nombre
+                apellido = memberAccount.apellido
+                nombre = memberAccount.nombre
+                email = memberAccount.email
+                celular = memberAccount.celular
+                direccion = memberAccount.direccion
+                documentacion = memberAccount.documentacion
+                responsable = memberAccount.responsable
+                
+                newPasswordMember = Socio(id, dni, apellido, nombre, email, new_password, celular, direccion, documentacion, responsable)
+                db.updateMember(newPasswordMember)
+
+        else:
+            session.clear()
+            flash('Algo salió mal.', 'error')
+            return redirect(url_for('login'))
+
+        session.pop('reset_password', None)
+        session.pop('reset_email', None)
+        session.pop('timestamp', None)
+        session.pop('confirmation_code', None)
+        session.clear()
+        flash('Contraseña restablecida.', 'success')
+        return redirect(url_for('login'))
+
+    return render_template('setNewPassword.html')
+
+
+
+
+
+
 
 
 @app.route('/selectionAge')
@@ -164,23 +351,25 @@ def saveFormPeopleMenor():
     return redirect(url_for('login'))
 
 
-# --------  CARGAR BIBLITOECARIA    ENCRIPTADA  ---------
-@app.route('/registerLibrarianBIBLIOTECA', methods=['POST', 'GET'])
+# --------  CARGAR BIBLITOECARIA  ---------
+@app.route('/registerLibrarianBIBLIOTECA', methods=['POST', 'GET'], endpoint='saveFormLibrarian',)
 @login_required
+@authorization_required(level=session, level_required=LEVEL_3, error=access_not_authorized)
 def saveFormLibrarian():
     if request.method == 'POST':
         password = request.form['password']
 
         _hashed_password = generate_password_hash(password)
+        cuenta = 'ACTIVA'
 
         librarian = Bibliotecaria(email=request.form.get("email"), nombre=request.form.get("Nombre"),
                                   apellido=request.form.get("Apellido"), password=_hashed_password,
-                                  celular=request.form.get("Celular"), rol=request.form.get("Rol"))
+                                  celular=request.form.get("Celular"), rol=request.form.get("Rol"), cuenta=cuenta)
 
         db.insertLibrarian(librarian=librarian)
-        flash(' Bibliotecaria cargada.', 'success')
-        return redirect(url_for('login'))
-    return render_template("registerLibrarian.html")
+        flash(' Bibliotecaria cargada.', 'succesAccount')
+        return redirect(url_for('showLibrarian'))
+    return render_template("registerLibrarian.html", user_rol=session['user_rol'])
 
 
 # -----------  EXPLORAR LIBROS PUBLIC -----------
@@ -261,10 +450,10 @@ def goAboutOnPublic():
     return render_template("aboutOnPublic.html")
 
 
-@app.route('/aboutOnLibrarian')
+@app.route('/aboutOnLibrarian', endpoint='goAboutOnLibrarian')
 @login_required
 def goAboutOnLibrarian():
-    return render_template("aboutOnLibrarian.html")
+    return render_template("aboutOnLibrarian.html", user_rol=session['user_rol'])
 
 
 # -------------------------------------------
@@ -407,7 +596,7 @@ def updateMember(id):
 # -----------  DELEETE MEMBER  -----------
 @app.route('/deleteMember/<int:id>', methods=['GET'], endpoint='destroyMember')
 @login_required
-@authorization_required(level=session, level_required=LEVEL_2, error=access_not_authorized)
+@authorization_required(level=session, level_required=LEVEL_3, error=access_not_authorized)
 def destroyMember(id):
     if request.method == 'GET':
         db.deleteMember(id)
@@ -417,23 +606,12 @@ def destroyMember(id):
 
 # -----------------------------------------  PRESTAMO  -----------------------------------------
 # -----------  SHOW PRESTAMO  -----------
-# @app.route('/showPrestamo', endpoint='showPrestamo', methods=['GET'])
-# @login_required
-# def showPrestamo():
-#     dataPrestamo = db.getAllPrestamo()
-#     prestamo = PrestamoDataViewList(dataPrestamo)
-#     return render_template('show_prestamo.html', prestamos=prestamo.list, user_rol=session['user_rol'])
-
 @app.route('/showPrestamo', endpoint='showPrestamo', methods=['GET'])
 @login_required
 def showPrestamo():
     dataPrestamo = db.getAllPrestamo()
     prestamo = PrestamoDataViewList(dataPrestamo)
     return render_template('show_prestamo.html', prestamos=prestamo.list, user_rol=session['user_rol'])
-
-
-
-
 
 
 # -----------  REGISTER PRESTAMO  -----------
@@ -468,24 +646,22 @@ def formPrestamo(id):
 
 
 # -----------  DELEETE PRESTAMO  -----------
-@app.route('/deletePrestamo/<int:id>', endpoint='destroyPrestamo')
-@login_required
-@authorization_required(level=session, level_required=LEVEL_2, error=access_not_authorized)
-def destroyPrestamo(id):
-    db.deletePrestamo(id)
-    flash('  Préstamo eliminado.', 'exito')
-    return redirect('/showPrestamo')
-
-
+# @app.route('/deletePrestamo/<int:id>', endpoint='destroyPrestamo')
+# @login_required
+# @authorization_required(level=session, level_required=LEVEL_2, error=access_not_authorized)
+# def destroyPrestamo(id):
+#     db.deletePrestamo(id)
+#     flash('  Préstamo eliminado.', 'exito')
+#     return redirect('/showPrestamo')
 
 
 # -----------------------------------------  DEVOLUTION  -----------------------------------------
 # -----------  SHOW DEVOLUTION  -----------
-@app.route('/showDevolution')
+@app.route('/showDevolution', endpoint='showDevolution')
 @login_required
 def showDevolution():
     dataDevoluciones = db.getAllDevolucion()
-    return render_template('show_devolution.html', devolutions=dataDevoluciones)
+    return render_template('show_devolution.html', devolutions=dataDevoluciones, user_rol=session['user_rol'])
 
 
 # -----------  REGISTER DEVOLUTION  -----------
@@ -496,9 +672,6 @@ def formDevolution(prestamo_id, libro_id):
     now = datetime.now()
     dateNow = now
 
-    # bibliotecaria = db.getLibrarian(session['_user_id'])
-    # book = db.getBook(libro_id)
-
     devolucion = Devolucion(id, fechaentrega=dateNow, idprestamo=prestamo_id)
 
     db.bookDevuelto(libro_id)
@@ -507,7 +680,57 @@ def formDevolution(prestamo_id, libro_id):
     return redirect(url_for('showPrestamo'))
 
 
+# -----------------------------------------  LIBRARIAN  -----------------------------------------
+# -----------  SHOW LIBRARIAN  -----------
+@app.route('/showLibrarian', endpoint='showLibrarian')
+@login_required
+def showLibrarian():
+    dataLibrarian = db.getAllLibrarian()
+    return render_template('show_librarian.html', librarians=dataLibrarian, user_rol=session['user_rol'])
 
 
-app.run(host = '0.0.0.0', port=5001, debug=True)
-    
+# -----------  UPDATE LIBRARIAN  -----------
+@app.route('/updateLibrarian/<email>', methods=['GET', 'POST'], endpoint='updateLibrarian')
+@login_required
+@authorization_required(level=session, level_required=LEVEL_2, error=access_not_authorized)
+def updateLibrarian(email):
+    if request.method == 'GET':
+        librarian = db.getLibrarianByEmail(email)
+        return render_template("updateLibrarian.html", librarian=librarian)
+
+    if request.method == 'POST':
+
+        nombre = request.form['nombre']
+        apellido = request.form['apellido']
+        celular = request.form['celular']
+        cuenta = request.form['cuenta']
+
+        librarian = db.getLibrarianByEmail(email)
+        password = librarian[3]
+        rol = librarian[5]
+
+        newLibrarian = Bibliotecaria(
+            email, nombre, apellido, password, celular, rol, cuenta)
+        db.updateLibrarian(newLibrarian)
+        flash('Bibliotecaria actualizada.', 'librarianEdit')
+        return redirect(url_for('showLibrarian'))
+
+    return redirect(url_for('showLibrarian'))
+
+
+# -----------  SUSPEND ACCOUNT LIBRARIAN  -----------
+@app.route('/suspendLibrarian/<email>', methods=['POST'])
+def suspendLibrarian(email):
+    db.suspendLibrarian(email)
+    flash('Cuenta suspendida !', 'suspendAccount')
+    return redirect(url_for('showLibrarian'))
+
+# -----------  RECOVER ACCOUNT LIBRARIAN  -----------
+@app.route('/recoverLibrarian/<email>', methods=['POST'])
+def recoverLibrarian(email):
+    db.recoverLibrarian(email)
+    flash('Cuenta recuperada !', 'succesAccount')
+    return redirect(url_for('showLibrarian'))
+
+
+app.run(host='0.0.0.0', port=5001, debug=True)

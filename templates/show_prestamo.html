@@ -73,6 +73,18 @@
                     <span class="title">Devoluciones</span>
                 </a>
             </li>
+            {% if user_rol in ["SU", "LIB_MNGA"] %}
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-user-minus"></i>
+                    </span>
+                    <span class="title">Bibliotecarias</span>
+                </a>
+            </li>
+            {% endif %}
         </ul>
     </div>
     <div class="toggle">
@@ -99,7 +111,7 @@
     {% for category, message in messages %}
     {% if category == 'devolutionExito' %}
     <div class="alert alert-primary alert-dismissible fade show" role="alert"
-        style="width: 32%; font-size: 93%; margin-top: -2%; margin-bottom: -1%;">
+        style="width: 29%; font-size: 79%; margin-top: -2%; margin-bottom: -1%;">
         <i class="uil uil-check-circle" style="color: blue; font-size: 110%;"></i><strong> ¡Éxito!</strong>{{ message }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
             style="margin-top: -0.9%;"></button>
@@ -127,7 +139,6 @@
         <tbody style="font-size: 67.5%; font-weight: 590;">
             {% for prestamo in prestamos %}
             <tr style="border-color: rgb(155, 155, 155);">
-                <!-- <td data-label="#">{{prestamo.prestamo.id}}</td> -->
                 <td data-label="#" style="text-align: center;">{{loop.index}}</td>
                 <td data-label="Socio" style="text-align: left;">
 

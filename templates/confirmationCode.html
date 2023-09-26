@@ -1,0 +1,72 @@
+{% extends "layoutForm.html" %}
+
+{% block title %} Olvidaste tu contraseña {% endblock %}
+
+{% block content %}
+<style>
+    .code-input-container {
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .code-input {
+        text-align: center;
+        font-size: 1.3rem;
+        height: 2.5rem;
+        width: 45px;
+    }
+
+    .code-input-grid {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+
+
+<div class="container">
+    <a href="/login">
+        <button type="button" class="btn2 btn-primary" style="margin-bottom: 3%;"><i class="uil uil-estate"></i>
+            Volver</button>
+    </a>
+    <div class="forms" style="margin-top: auto;">
+        <div class="form login">
+            <span class="title">Olvidaste tu contraseña</span>
+
+            <form action="{{ url_for('confirmationCode') }}" method="post">
+                <br>
+                <h6 style="margin-top: 3.5%; margin-bottom: 3%;">Ingresa el código de confirmación !</h6>
+                <div class="container code-input-container">
+                    <div class="code-input-grid">
+                        <input type="text" class="form-control code-input" name="code_part1" maxlength="1" required>
+                        <input type="text" class="form-control code-input" name="code_part2" maxlength="1" required>
+                        <input type="text" class="form-control code-input" name="code_part3" maxlength="1" required>
+                        <input type="text" class="form-control code-input" name="code_part4" maxlength="1" required>
+                        <input type="text" class="form-control code-input" name="code_part5" maxlength="1" required>
+                    </div>
+                </div>
+                <div class="input-field button" style="margin-top: 26px;">
+                    <input type="submit" value="Enviar" class="btn btn-primary">
+                </div>
+            </form>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'error' %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                            style="margin-top: 3%; font-size: 90%;">
+                            <i class="uil uil-exclamation-circle" style="color: red;"></i><strong> ¡Error!</strong> 
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

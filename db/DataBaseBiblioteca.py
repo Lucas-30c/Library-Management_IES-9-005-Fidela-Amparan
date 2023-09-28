@@ -8,11 +8,10 @@ from Model.Bibliotecaria import Bibliotecaria
 
 class BooksDataBase:
     def __init__(self):
-        
+
         # NEON TECH
-        self.connection = psycopg2.connect(host="ep-still-mouse-27662901.us-east-2.aws.neon.tech",
-                                           database="dbBibliotecaDussel",
-                                           user="Lucas-30c", password="DONk5sjSdln0")
+        self.connection = psycopg2.connect(host="ep-still-mouse-27662901.us-east-2.aws.neon.tech", database="dbBibliotecaDussel", user="bibliotecae.dussel", password="DONk5sjSdln0")
+
 
         # PostgreSQL local
         # self.connection = psycopg2.connect(host="localhost", database="db_biblioteca_sociosDNI", user="postgres",

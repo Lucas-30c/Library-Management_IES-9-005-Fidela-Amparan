@@ -42,6 +42,22 @@
                     <input name="estado" type="hidden" value="{{estado.7}}" required>
                 </div>
 
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                {% if category == 'errorFormPrestamo' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                    style="width: auto; font-size: 85%; margin-top: -1%; margin-bottom: 4%;">
+                    <i class="uil uil-check-circle" style="color: red; font-size: 110%;"></i><strong> ¡Error! </strong>{{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                        style="margin-top: -0.9%;"></button>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+
                 <div class="bstr d-grid col-12 mx-auto">
                     <button class="btn btn-primary" type="submit" id="botonRegistrar" disabled>Registrar</button>
                 </div>

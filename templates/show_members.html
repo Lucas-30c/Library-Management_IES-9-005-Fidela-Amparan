@@ -77,11 +77,11 @@
             <li class="list">
                 <b></b>
                 <b></b>
-                <a href="/showLibrarian">
+                <a href="/managmentMenu">
                     <span class="icon">
-                        <i class="uil uil-user-minus"></i>
+                        <i class="uil uil-folder-lock"></i>
                     </span>
-                    <span class="title">Bibliotecarias</span>
+                    <span class="title">Administración</span>
                 </a>
             </li>
             {% endif %}
@@ -173,39 +173,6 @@
                         <button type="button" class="btnMember btn-info" style="width: auto;" title="Editar Socio"><i
                                 class="uil uil-pen"></i></button>
                     </a>
-
-                    {% if user_rol == 'SU' %}
-                    <button type="button" class="btnMemberDelete btn-info" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop" title="Eliminar Socio" style="width: auto"><i
-                            class="uil uil-trash"></i></button>
-
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="uil uil-trash"
-                                            style="color: red;"></i>
-                                        Eliminar Socio</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                        style="font-size: medium;"></button>
-                                </div>
-                                <div class="modal-body" style="margin-top: -3%; margin-bottom: -2%;">
-                                    <i class="uil uil-exclamation-circle" style="font-size: 50px; color: #f02f43"></i>
-                                    <p style="font-size: medium;">¿Deseas eliminar el socio?</p>
-                                </div>                                
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary buttModal2"
-                                        data-bs-dismiss="modal">Cancelar
-                                    </button>
-                                    <abbr title="Eliminar Socio"><a href="/deleteMember/{{member.0}}"
-                                        class="btn btn-primary buttModal" style="background-color: #DC3545; border-color: #DC3545;">Eliminar</a></abbr>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-
                 </td>
             </tr>
             {% endfor %}

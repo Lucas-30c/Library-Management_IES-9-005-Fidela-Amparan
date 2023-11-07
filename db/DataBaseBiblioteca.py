@@ -4,19 +4,18 @@ from Model.Socio import Socio
 from Model.Prestamo import Prestamo
 from Model.Devolucion import Devolucion
 from Model.Bibliotecaria import Bibliotecaria
+from Model.ServiceRating import ServiceRating
 
 
 class BooksDataBase:
     def __init__(self):
-
         # NEON TECH
-        self.connection = psycopg2.connect(host="ep-still-mouse-27662901.us-east-2.aws.neon.tech", database="dbBibliotecaDussel", user="bibliotecae.dussel", password="DONk5sjSdln0")
-
+        #self.connection = psycopg2.connect(host="ep-still-mouse-27662901.us-east-2.aws.neon.tech", database="dbBibliotecaDussel", user="bibliotecae.dussel", password="DONk5sjSdln0")
 
         # PostgreSQL local
-        # self.connection = psycopg2.connect(host="localhost", database="db_biblioteca_sociosDNI", user="postgres",
-        #                                    port="5432",
-        #                                    password="lucas3030")
+        self.connection = psycopg2.connect(host="localhost", database="db_biblioteca_sociosDNI", user="postgres",
+                                           port="5432",
+                                           password="lucas3030")
 
         self.cursor = self.connection.cursor()
 
@@ -62,6 +61,32 @@ class BooksDataBase:
     def bookDevuelto(self, idlibro):
         self.cursor.execute(f"UPDATE libro SET estado = 'Disponible' WHERE id = {idlibro}")
         self.connection.commit()
+
+
+
+
+    def updateBookAvailability(self, id, copias=None, estado=None):
+        try:
+            if copias is not None and estado is not None:
+                query = "UPDATE libro SET copias = %s, estado = %s WHERE id = %s"
+                data = (copias, estado, id)
+            elif copias is not None:
+                query = "UPDATE libro SET copias = %s WHERE id = %s"
+                data = (copias, id)
+            elif estado is not None:
+                query = "UPDATE libro SET estado = %s WHERE id = %s"
+                data = (estado, id)
+            else:
+                return False  # No se proporcionaron nuevos valores para actualizar
+
+            self.cursor.execute(query, data)
+            self.connection.commit()
+            return True
+        except Exception as e:
+            print(f"Error al actualizar la disponibilidad del libro: {e}")
+            self.connection.rollback()
+            return False
+
     
 
 
@@ -221,3 +246,16 @@ class BooksDataBase:
     def recoverLibrarian(self, email):
         self.cursor.execute(f"UPDATE bibliotecaria SET cuenta = 'ACTIVA' WHERE email = %s", (email,))
         self.connection.commit()  
+
+
+    
+    # SERVICE RATING
+    def getAllServiceRating(self):
+        self.cursor.execute("SELECT * FROM service_rating ORDER BY id")
+        serviceRating = self.cursor.fetchall()
+        return serviceRating
+
+    def insertServiceRating(self, serviceRating: ServiceRating):
+        SQLinsert = f"insert into service_rating(member, star, comment) values ('{serviceRating.member}','{serviceRating.star}','{serviceRating.comment}');"
+        self.cursor.execute(SQLinsert)
+        self.connection.commit()

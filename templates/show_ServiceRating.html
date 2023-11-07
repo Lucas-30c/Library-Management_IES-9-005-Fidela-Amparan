@@ -1,0 +1,179 @@
+{% extends "layoutLibrarian.html" %}
+
+
+{% block title %} Calificación del Servicio {% endblock %}
+
+
+{% block content %}
+<script src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.18/datatables.min.js"></script>
+<nav class="navbar">
+    <div class="header-2">
+        <ul>
+            <p class="nameUser">Menú</p>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/InicioLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-estate"></i>
+                    </span>
+                    <span class="title">Inicio</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/exploreBooksLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-books"></i>
+                    </span>
+                    <span href="/exploreBooksLibrarian" class="title">Explorar Libros</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/aboutOnLibrarian">
+                    <span class="icon">
+                        <i class="uil uil-question-circle"></i>
+                    </span>
+                    <span href="/aboutOnLibrarian" class="title">Acerca de</span>
+                </a>
+            </li>
+            <hr
+                style="border: 2px solid #EEE7CE; border-radius: 2px; opacity: 1; width: 90%; margin-left: -2%; box-shadow: 0 0 2px rgb(0, 0, 0);">
+            <!-----------------   FUNCTIONS LIBRARYAN   ----------------->
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showMembers">
+                    <span class="icon">
+                        <i class="uil uil-user-plus" style="margin-left: 8%;"></i>
+                    </span>
+                    <span class="title">Socios</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showPrestamo">
+                    <span class="icon">
+                        <i class="uil uil-book-reader"></i>
+                    </span>
+                    <span class="title">Prestamos</span>
+                </a>
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="/showDevolution">
+                    <span class="icon">
+                        <i class="uil uil-clock"></i>
+                    </span>
+                    <span class="title">Devoluciones</span>
+                </a>
+            </li>
+            {% if user_rol in ["SU", "LIB_MNGA"] %}
+            <li class="list active">
+                <b></b>
+                <b></b>
+                <a href="/managmentMenu">
+                    <span class="icon">
+                        <i class="uil uil-folder-lock"></i>
+                    </span>
+                    <span class="title">Administración</span>
+                </a>
+            </li>
+
+            {% endif %}
+        </ul>
+    </div>
+    <div class="toggle">
+        <ion-icon name="menu-outline" class="open"></ion-icon>
+        <ion-icon name="close-outline" class="close"></ion-icon>
+    </div>
+</nav>
+
+
+
+<!-- Contenido -->
+<div style="width: 91.5%; margin-left: 8.3%; color: #EEE7CE; margin-bottom: 1%;">
+    <h6 class="titlePage">Calificación del Servicio</h6>
+
+    <table id="" class="display3 table table-striped" cellspacing="1" cellpadding="1" width="100%"
+        style="background-color: #e0e0e0; border: 0.1px solid #ffffff; border-radius: .40rem; color: rgb(0, 0, 0);">
+        <thead style="border-radius: 30%;">
+            <tr style="color: #FFC728; background-color: #315c53; font-size: 72%;">
+                <th style="width: 1%; text-align: center; font-weight: 450;">#</th>
+                <th style="width: 8%; text-align: center; font-weight: 450;">Socio</th>
+                <th style="width: 7%; text-align: center; font-weight: 450;"><i class="uil uil-star"></i> Estrellas <i class="uil uil-star"></i></th>
+                <th style="width: 18%; text-align: center; font-weight: 450;">Comentario</th>
+            </tr>
+        </thead>
+        <tbody style="font-size: 70%; font-weight: 590;">
+            {% for serviceRating in serviceRatings %}
+            <tr style="border-color: rgb(155, 155, 155);">
+                <td data-label="#">{{loop.index}}</td>
+                <td data-label="Socio" style="text-align: left;">{{serviceRating.1}}</td>
+                <td data-label="Estrellas" style="text-align: center;">{{serviceRating.2}}/5</td>
+                <td data-label="Comentario" style="text-align: left;">{{serviceRating.3}}</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .titlePage {
+        background-color: #315c53;
+        margin-bottom: 2.7%;
+        padding: 7.7px 0px 6px 0px;
+        width: 20%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: .45rem;
+        font-size: 95%;
+        font-weight: 440;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("table.display3 tfoot th").each(function () {
+            var title = $(this).text();
+        });
+        var table = $("table.display3").DataTable({
+            "dom": 'B<"float-right"f>t<"float-left"l><"float-right"p><"clearfix">',
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
+                "searchPlaceholder": "Buscar una reseña"
+            },
+            autoWidth: false,
+        });
+
+
+        $("table.display3 thead").on("keyup", "input", function () {
+            table.column($(this).parent().index())
+                .search(this.value)
+                .draw();
+        });
+    });
+
+    let menuToggle = document.querySelector('.navbar .toggle')
+    let Navigation = document.querySelector('.navbar .header-2')
+    menuToggle.onclick = function () {
+        menuToggle.classList.toggle('active')
+        Navigation.classList.toggle('active')
+    }
+
+    for (let i = 0; i < list.length; i++) {
+        list[i].onclick = function () {
+            let j = 0;
+            while (j < list.length) {
+                list[j++].className = 'list'
+            }
+            list[i].className = 'list active';
+        }
+    }
+</script>
+{% endblock %}

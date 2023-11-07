@@ -29,76 +29,64 @@
 
 <body class="grid-container">
     <!----------- ENCABEZADO ----------->
-    <header class="header">
-        <div class="d-flex bd-highlight mb-3">
-            <div class="me-auto p-2 bd-highlight" style="margin-top: -0.27%;"><a href="/InicioLibrarian" class="logo">
-                    <i class="uil uil-book-alt"></i> Biblioteca Dussel</a></div>
-            <div class="p-2 bd-highlight"><a href="/exploreBooksLibrarian" class="logoLupa"> <i
-                        class="fa-solid fa-magnifying-glass"></i></a></div>
-            <div class="p-2 bd-highlight"></div>
-            <div class="p-2 bd-highlight">
-                <div class="loggedin">
-                    <div class="wrapper">
-                        <div class="right-menu" style="margin-left: -100%; margin-top: -30%;">
-                            <button class="menu-button"><i class="uil uil-user" style="font-size: 80%;"></i></button>
-                            <div class="dropdown-menu" style="font-size: 80%; margin-left: -430%;">
-                                <a href="/logout"><i class="uil uil-sign-in-alt"
-                                        style="font-size: 140%; margin-right: 5%;"></i>Cerrar sesión</a>
-                            </div>
+    <header class="header d-flex justify-content-between align-items-center">
+        <div class="me-auto p-2 mt-1">
+            <a class="logo" href="/InicioLibrarian"><img src="/static/images/iconpageHeader.png" alt="Icono de Libro"> Biblioteca Dussel</a>
+        </div>
+        <div class="p-2 mt-1">
+            <a href="/exploreBooksLibrarian" class="logoLupa">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+        </div>
+        <div class="p-2 mt-1">
+            <div class="loggedin">
+                <div class="wrapper">
+                    <div class="right-menu" style="margin-left: -100%; margin-top: -13%;">
+                        <button class="menu-button"><i class="uil uil-user" style="font-size: 85%;"></i></button>
+                        <div class="dropdown-menu" style="font-size: 80%; margin-left: -430%;">
+                            <a href="/logout"><i class="uil uil-sign-in-alt"
+                                    style="font-size: 140%; margin-right: 5%;"></i>Cerrar sesión</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="p-2 bd-highlight">
-                <div class="container__menu">
-                    <div class="menu">
-                        <i class="uil uil-bars" id="btn_menu"></i>
-                        <div id="back_menu"></div>
-                        <nav id="nav">
-                            <ul>
-                                <li><a href="/InicioLibrarian"><i class="uil uil-estate"></i> Inicio</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color"
-                                    style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/exploreBooksLibrarian"><i class="uil uil-books"></i> Explorar Libros</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color"
-                                    style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/aboutOnLibrarian"><i class="uil uil-question-circle"></i> Acerca de</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color"
-                                    style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/showMembers"><i class="uil uil-user-plus"></i> Socios</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color"
-                                    style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/showPrestamo"><i class="uil uil-book-reader"></i> Prestamos</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color"
-                                    style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/showDevolution"><i class="uil uil-clock"></i> Devoluciones</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color"
-                                    style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/logout"><i class="uil uil-sign-in-alt"></i> Cerrar sesión</a></li>                                
-                            </ul>
-                        </nav>
-                    </div>
+        </div>
+        <div class="p-2">
+            <div class="container__menu">
+                <div class="menu">
+                    <i class="uil uil-bars" id="btn_menu"></i>
+                    <div id="back_menu"></div>
+                    <nav id="nav">
+                        <ul>
+                            <li><a href="/InicioLibrarian"><i class="uil uil-estate"></i> Inicio</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color"
+                                style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/exploreBooksLibrarian"><i class="uil uil-books"></i> Explorar Libros</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color"
+                                style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/aboutOnLibrarian"><i class="uil uil-question-circle"></i> Acerca de</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color"
+                                style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/showMembers"><i class="uil uil-user-plus"></i> Socios</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color"
+                                style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/showPrestamo"><i class="uil uil-book-reader"></i> Prestamos</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color"
+                                style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/showDevolution"><i class="uil uil-clock"></i> Devoluciones</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color"
+                                style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/logout"><i class="uil uil-sign-in-alt"></i> Cerrar sesión</a></li>                                
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
     </header>
 
-
-
-
-
-
-
-
-
-
-
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-
 
 
     <!----------- CONTENIDO PRINCIPAL ----------->
@@ -106,12 +94,9 @@
 
         {% block content %}
 
-
-
         {% endblock %}
 
     </article>
-
 
 
     <!----------- PIE DE PÁGINA ----------->
@@ -142,12 +127,10 @@
         </div>
     </footer>
 
-
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <script src="/static/js/script.js"></script>
 
 </body>
-
 </html>

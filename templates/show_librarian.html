@@ -77,11 +77,11 @@
             <li class="list active">
                 <b></b>
                 <b></b>
-                <a href="/showLibrarian">
+                <a href="/managmentMenu">
                     <span class="icon">
-                        <i class="uil uil-user-minus"></i>
+                        <i class="uil uil-folder-lock"></i>
                     </span>
-                    <span class="title">Bibliotecarias</span>
+                    <span class="title">Administración</span>
                 </a>
             </li>
             {% endif %}
@@ -92,14 +92,6 @@
         <ion-icon name="close-outline" class="close"></ion-icon>
     </div>
 </nav>
-
-
-<style>
-    /* .custom-alert {
-        font-size: px;
-    } */
-</style>
-
 
 
 <!-- Contenido -->
@@ -205,7 +197,6 @@
     </table>
 </div>
 
-
 <style>
     .titlePage {
         background-color: #315c53;
@@ -225,7 +216,6 @@
         position: absolute;
         justify-content: end;
         background-color: #0FA3B9;
-        /* background-color: #0fa2b936; */
     }
 
     #boton-nuevo:hover {
@@ -233,8 +223,6 @@
         background-color: #058ea3;
     } 
 </style>
-
-
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -257,8 +245,6 @@
                 .draw();
         });
     });
-
-
 
     let menuToggle = document.querySelector('.navbar .toggle')
     let Navigation = document.querySelector('.navbar .header-2')

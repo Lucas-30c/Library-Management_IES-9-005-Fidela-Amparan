@@ -175,11 +175,11 @@
             <li class="list">
                 <b></b>
                 <b></b>
-                <a href="/showLibrarian">
+                <a href="/managmentMenu">
                     <span class="icon">
-                        <i class="uil uil-user-minus"></i>
+                        <i class="uil uil-folder-lock"></i>
                     </span>
-                    <span class="title">Bibliotecarias</span>
+                    <span class="title">Administración</span>
                 </a>
             </li>
             {% endif %}
@@ -209,6 +209,15 @@
     font-size: 79%; margin-top: -12.5%; margin-right: 1%; float:right; border-color: rgba(0, 0, 255, 0.76);">
     <i class="uil uil-check-circle" style="color: blue; font-size: 110%;"></i><strong> ¡Éxito!</strong> {{ message
     }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+{% if category == 'errorCopiesBook' %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert"
+    style="width: 27.5%; padding: 15px; 
+    font-size: 79%; margin-top: -12.5%; margin-right: 1%;">
+    <i class="uil uil-check-circle" style="color: red; font-size: 110%;"></i><strong> ¡Error! </strong>{{ message }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endif %}

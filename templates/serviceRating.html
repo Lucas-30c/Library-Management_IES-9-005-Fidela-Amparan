@@ -1,0 +1,119 @@
+{% extends "layoutForm.html" %}
+
+{% block title %} Calificación del Servicio {% endblock %}
+
+{% block content %}
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css'>
+
+
+<div class="container" style="width: 440px;">
+    {% if user_rol == 'socio' %}
+    <a href="/InicioUser">
+        <button type="button" class="btn2 btn-primary" style="margin-bottom: 3%;"><i class="uil uil-estate"></i>
+            Inicio</button>
+    </a>
+    {% else %}
+    <a href="/">
+        <button type="button" class="btn2 btn-primary" style="margin-bottom: 3%;"><i class="uil uil-estate"></i>
+            Inicio</button>
+    </a>
+    {% endif %}
+
+    <div class="forms" style="margin-top: auto;">
+        <div class="form login">
+
+            <span class="title">Calificación del Servicio</span>
+
+            <form action="/sendServiceRating" method="POST">
+                <div class="stars" style="margin-top: 6.3%; margin-bottom: 3%;">
+                    <label class="rate">
+                        <input type="radio" name="number_stars" value="1" required>
+                        <div class="face"></div>
+                        <i class="far fa-star star one-star"></i>
+                    </label>
+                    <label class="rate">
+                        <input type="radio" name="number_stars" value="2" required>
+                        <div class="face"></div>
+                        <i class="far fa-star star two-star"></i>
+                    </label>
+                    <label class="rate">
+                        <input type="radio" name="number_stars" value="3" required>
+                        <div class="face"></div>
+                        <i class="far fa-star star three-star"></i>
+                    </label>
+                    <label class="rate">
+                        <input type="radio" name="number_stars" value="4" required>
+                        <div class="face"></div>
+                        <i class="far fa-star star four-star"></i>
+                    </label>
+                    <label class="rate">
+                        <input type="radio" name="number_stars" value="5" required>
+                        <div class="face"></div>
+                        <i class="far fa-star star five-star"></i>
+                    </label>
+                </div>
+
+                <div class="mb-3">
+                    <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3"
+                        placeholder="Tu Comentario" required></textarea>
+                </div>
+
+                <div class="input-field button">
+                    <input type="submit" value="Enviar Comentario">
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+
+
+<script>
+    $(function () {
+        $(document).on({
+            mouseenter: function () {
+                $(this).addClass('star-over');
+                $(this).prevAll().addClass('star-over');
+            },
+            mouseleave: function () {
+                $(this).removeClass('star-over');
+                $(this).prevAll().removeClass('star-over');
+            }
+        }, '.rate');
+    });
+
+
+    $(function () {
+
+        $(document).on({
+            mouseover: function (event) {
+                $(this).find('.far').addClass('star-over');
+                $(this).prevAll().find('.far').addClass('star-over');
+            },
+            mouseleave: function (event) {
+                $(this).find('.far').removeClass('star-over');
+                $(this).prevAll().find('.far').removeClass('star-over');
+            }
+        }, '.rate');
+
+
+        $(document).on('click', '.rate', function () {
+            if (!$(this).find('.star').hasClass('rate-active')) {
+                $(this).siblings().find('.star').addClass('far').removeClass('fas rate-active');
+                $(this).find('.star').addClass('rate-active fas').removeClass('far star-over');
+                $(this).prevAll().find('.star').addClass('fas').removeClass('far star-over');
+            } else {
+                console.log('has');
+            }
+        });
+
+    });
+</script>
+
+{% endblock %}

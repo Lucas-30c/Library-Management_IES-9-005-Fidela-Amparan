@@ -27,60 +27,49 @@
 
 <body class="grid-container">
     <!----------- ENCABEZADO ----------->
-    <header class="header">
-        <div class="d-flex bd-highlight mb-3">
-            <div class="me-auto p-2 bd-highlight" style="margin-top: -0.27%;"><a href="/InicioUser" class="logo"> <i
-                        class="uil uil-book-alt"></i> Biblioteca Dussel</a></div>
-            <div class="p-2 bd-highlight"><a href="/exploreBooksUser" class="logoLupa"> <i
-                        class="fa-solid fa-magnifying-glass"></i></a></div>
-            <div class="p-2 bd-highlight"></div>
-            <div class="p-2 bd-highlight">
-                <div class="loggedin">
-                    <div class="wrapper">
-                        <div class="right-menu" style="margin-left: -100%; margin-top: -30%;">
-                            <button class="menu-button"><i class="uil uil-user" style="font-size: 80%;"></i></button>
-                            <div class="dropdown-menu" style="font-size: 80%; margin-left: -430%;">
-                                <a href="/logout"><i class="uil uil-sign-in-alt"
-                                        style="font-size: 140%; margin-right: 5%;"></i>Cerrar sesión</a>
-                            </div>
+    <header class="header d-flex justify-content-between align-items-center">
+        <div class="me-auto p-2 mt-1">
+            <a class="logo" href="/InicioUser"><img src="/static/images/iconpageHeader.png" alt="Icono de Libro"> Biblioteca Dussel</a>
+        </div>
+        <div class="p-2 mt-1">
+            <a href="/exploreBooksUser" class="logoLupa">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+        </div>
+        <div class="p-2 mt-1">
+            <div class="loggedin">
+                <div class="wrapper">
+                    <div class="right-menu" style="margin-left: -100%; margin-top: -13%;">
+                        <button class="menu-button"><i class="uil uil-user" style="font-size: 85%;"></i></button>
+                        <div class="dropdown-menu" style="font-size: 80%; margin-left: -430%;">
+                            <a href="/logout"><i class="uil uil-sign-in-alt"
+                                    style="font-size: 140%; margin-right: 5%;"></i>Cerrar sesión</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="p-2 bd-highlight">
-                <div class="container__menu">
-                    <div class="menu">
-                        <i class="uil uil-bars" id="btn_menu"></i>
-                        <div id="back_menu"></div>
-                        <nav id="nav">
-                            <ul>
-                                <li><a href="/InicioUser"><i class="uil uil-estate"></i>  Inicio</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/exploreBooksUser"><i class="uil uil-books"></i>  Explorar Libros</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/aboutOn"><i class="uil uil-question-circle"></i>  Acerca de</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/logout"><i class="uil uil-sign-in-alt"></i> Cerrar sesión</a></li> 
-                            </ul>
-                        </nav>
-                    </div>
+        </div>
+        <div class="p-2">
+            <div class="container__menu">
+                <div class="menu">
+                    <i class="uil uil-bars" id="btn_menu"></i>
+                    <div id="back_menu"></div>
+                    <nav id="nav">
+                        <ul>
+                            <li><a href="/InicioUser"><i class="uil uil-estate"></i>  Inicio</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/exploreBooksUser"><i class="uil uil-books"></i>  Explorar Libros</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/aboutOn"><i class="uil uil-question-circle"></i>  Acerca de</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/logout"><i class="uil uil-sign-in-alt"></i> Cerrar sesión</a></li> 
+                        </ul>
+                    </nav>
                 </div>
             </div>
-        </div>
+        </div>        
     </header>
     
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- Modal Editar Perfil -->
     <div class="modal fade" id="staticBackdropUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -93,7 +82,7 @@
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" style="text-align: left; font-size: 85%;">
+                <div class="modal-body" style="text-align: left; font-size: 77%;">
                     <i class="uil uil-angle-right-b" style="color: #145D56;"></i> La modificación y actualización de
                     datos debe ser aprobada por las bibliotecarias.<br><br>
 
@@ -117,7 +106,6 @@
     </div>
 
 
-
     <!----------- CONTENIDO PRINCIPAL ----------->
     <article class="main">
 
@@ -128,8 +116,6 @@
         {% endblock %}
 
     </article>
-
-
 
 
     <!----------- PIE DE PÁGINA ----------->

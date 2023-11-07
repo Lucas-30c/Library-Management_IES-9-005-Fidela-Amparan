@@ -25,50 +25,39 @@
 </head>
 
 <body class="grid-container">
-
     <!----------- ENCABEZADO ----------->
-    <header class="header">
-        <div class="d-flex bd-highlight mb-3">
-            <div class="me-auto p-2 bd-highlight"><a href="/" class="logo"> <i
-                        class="uil uil-book-alt"></i> Biblioteca Dussel</a></div>
-            <div class="p-2 bd-highlight"><a href="/exploreBooksPublic" class="logoLupa"> <i
-                        class="fa-solid fa-magnifying-glass"></i></a></div>
-            <div class="p-2 bd-highlight"></div>
-            <div class="p-2 bd-highlight boton"><a class="btn btn-warning" href="/login" role="button"
-                    style="margin-left: -50%;">Acceder</a></div>
-            <div class="p-2 bd-highlight">
-                <div class="container__menu">
-                    <div class="menu">
-                        <i class="uil uil-bars" id="btn_menu"></i>
-                        <div id="back_menu"></div>
-                        <nav id="nav">
-                            <ul>
-                                <li><a href="/login"><i class="uil uil-signin"></i>  Acceder</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/"><i class="uil uil-estate"></i>  Inicio</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/exploreBooksPublic"><i class="uil uil-books"></i>  Explorar Libros</a></li>
-                                <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
-                                <li><a href="/aboutOnPublic"><i class="uil uil-question-circle"></i>  Acerca de</a></li>
-                            </ul>
-                        </nav>
-                    </div>
+    <header class="header d-flex justify-content-between align-items-center">
+        <div class="me-auto p-2 mt-1">
+            <a class="logo" href="/"><img src="/static/images/iconpageHeader.png" alt="Icono de Libro"> Biblioteca</a>
+        </div>
+        <div class="p-2 mt-1">
+            <a href="/exploreBooksPublic" class="logoLupa">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+        </div>
+        <div class="p-2 boton mt-1">
+            <a class="btn btn-warning" href="/login" role="button">Acceder</a>
+        </div>                      
+        <div class="p-2">
+            <div class="container__menu">
+                <div class="menu">
+                    <i class="uil uil-bars" id="btn_menu"></i>
+                    <div id="back_menu"></div>
+                    <nav id="nav">
+                        <ul>
+                            <li><a href="/login"><i class="uil uil-signin"></i>  Acceder</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/"><i class="uil uil-estate"></i>  Inicio</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/exploreBooksPublic"><i class="uil uil-books"></i>  Explorar Libros</a></li>
+                            <hr class="bg-danger border-1.8 border-top border-color" style="margin-bottom: -10%; width: 120%; margin-left: -18%;">
+                            <li><a href="/aboutOnPublic"><i class="uil uil-question-circle"></i>  Acerca de</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
     </header>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <!----------- CONTENIDO PRINCIPAL ----------->
@@ -76,12 +65,9 @@
 
         {% block content %}
 
-
-
         {% endblock %}
 
     </article>
-
 
 
     <!----------- PIE DE PÁGINA ----------->
@@ -90,8 +76,8 @@
             <div class="block-item1">
                 <i class="uil uil-envelope" style="font-size: 250%; color: #248d8d;"></i>
                 <div class="sub-head">Email</div>
-                <a href="mailto:bibliotecae.dussel2022@gmail.com" class="desc"
-                    style="font-size: 59%;">bibliotecae.dussel2022@gmail.com</a>
+                <a href="mailto:lafidela9005@gmail.com" class="desc"
+                    style="font-size: 66%;">lafidela9005@gmail.com</a>
             </div>
             <div class="block-item2">
                 <i class="uil uil-clock" style="font-size: 250%; color: #f5b914;"></i>
@@ -101,7 +87,7 @@
             <div class="block-item3">
                 <i class="uil uil-location-point" style="font-size: 250%; color: #D90E40;"></i>
                 <div class="sub-head">Visitanos</div>
-                <a href="https://goo.gl/maps/928PfaZpJYw8VqAx5" class="desc" style="font-size: 75%;">Ubicación
+                <a href="https://maps.app.goo.gl/D2A5evYfA6Frgq3v6" class="desc" style="font-size: 75%;">Ubicación
                     Biblioteca</a>
             </div>
         </div>
@@ -110,7 +96,7 @@
         <div class="grupo-1">
             <div class="box">
                 <div class="linkPages">
-                    <h2 style="margin-bottom: 2%;">BIBLIOTECA E. DUSSEL</h2>
+                    <h2 style="margin-bottom: 2%;">BIBLIOTECA F. AMPARAN</h2>
                     <a href="/" class="title1">Inicio |</a>
                     <a href="/exploreBooksPublic" class="title2">Explorar Libros |</a>
                     <a href="/aboutOnPublic" class="title3">Acerca de</a>
@@ -118,7 +104,7 @@
             </div>
         </div>
         <div class="grupo-2">
-            <small>&copy; {{yearNow}} <b>Biblioteca Enrique Dussel</b> - Todos los Derechos Reservados.</small>
+            <small>&copy; {{yearNow}} <b>Biblioteca Fidela Amparan</b> - Todos los Derechos Reservados.</small>
         </div>
     </footer>
 

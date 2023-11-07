@@ -5,11 +5,29 @@
 
 {% block content %}
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+{% if category == 'succesServiceRating' %}
+<div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
+    <i class="uil uil-check-circle" style="color: green; font-size: 100%;"></i><strong> ¡Éxito!</strong>
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+
+
+
 <div class="row2" style="margin-top: 0.1%;">
     <div class="content">
         <h3>Biblioteca Pública Municipal</h3>
         <h2>Enrique Dussel</h2>
-            <a href="/exploreBooksUser" id="login-btn" class="btn4"><i class="uil uil-books"></i>Explorar Libros</a>
+        <a href="/exploreBooksUser" id="login-btn" class="btn4"><i class="uil uil-books"></i>Explorar Libros</a>
     </div>
 </div>
 
@@ -54,7 +72,29 @@
     <img src="/static/images/logofacebook.png" alt="" class="img-puntoDigital">
     <a href="https://www.facebook.com/tu_pagina" class="btn-visitar">¡Visita nuestra página!</a>
 </div>
-  
+
+
+
+
+
+<!--  SERVICE CLASSIFICATION  -->
+<div class="container-fluid custom-bg text-white" style="margin-top: 7%;">
+    <div class="alert text-center" role="alert" style="margin-left: 2.2%;">
+        <h4 class="alert-heading" style="font-size: 1.3rem;">¿Quieres calificar nuestra atención?</h4>
+    </div>
+    <form action="/emailServiceRating" method="post" class="d-flex justify-content-center mt-3"
+        style="margin-left: 2.2%;">
+        <div class="input-group mb-3" style="max-width: 300px;">
+            <input type="email" class="form-control" name="emailServiceRating" placeholder="Email ?" required>
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-arrow-right-long"></i></button>
+        </div>
+    </form>
+    <span style="font-size: small; color: #b4b8bb; margin-left: 2.2%; font-weight: 400;">REQUISITOS: Ser Socio con documentación
+        ENTREGADA</span>
+</div>
+
+
+
 
 <h1 class="heading2"> <span>Nuestros libros</span> </h1>
 
@@ -110,10 +150,6 @@
 
 <div class="newsletter">
     <form action="">
-        <!-- <h3 style="color: #FFC728; text-align: center; margin-bottom: -1.5%; margin-top: 3.5%; font-size: 200%;">¡Si
-            quieres aventuras,</h3>
-        <h3 style="color: #FFC728; font-size: 200%;"> lánzate a la lectura!</h3> -->
-
         <h4 style="color: #FFC728; margin-bottom: -1.5%; margin-top: 2.8%">¡Si quieres aventuras,</h4>
         <h5 style="color: #FFC728;"> lánzate a la lectura!</h5>
         <h2 style="color: #00000000; margin-bottom: 2%;"></h2>
@@ -140,10 +176,32 @@
         font-weight: 450;
     }
 
-
-    .btnCardHome:hover{
+    .btnCardHome:hover {
         color: #eeeeee;
         background: #214042;
+    }
+
+    .custom-bg {
+        background-image: linear-gradient(to left top, #0c6b61, #005b58, #004b4d, #003c41, #032d34);
+        height: 227px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .custom-bg .alert {
+        margin-bottom: -1px;
+    }
+
+    .custom-alert {
+        position: fixed;
+        right: 0;
+        margin-top: 6%;
+        font-size: 77%;
+        z-index: 9000;
+        width: 330px;
+        align-items: right;
     }
 </style>
 
